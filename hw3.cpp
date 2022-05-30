@@ -275,7 +275,7 @@ void RegistationUI::enterProduct(Registation* control) {
     fin >> ProductName >> CompanyName >> ProductPrice >> RegistationQuantity;
     control->setProduct(ProductName, CompanyName, ProductPrice, RegistationQuantity, MemberID);
     productnumber++;
-    fout << "판매 의류 등록" << endl << ProductName <<" " << CompanyName<<" "<< ProductPrice <<" "<< RegistationQuantity << endl;
+    fout << "3.1 판매 의류 등록" << endl << ProductName <<" " << CompanyName<<" "<< ProductPrice <<" "<< RegistationQuantity << endl;
 
 }
 
@@ -352,7 +352,7 @@ void CheckSaleUI::printCheckSale(CheckSale* control)
     int i = 0;
     while (productnumber > i) {
         if (control->searchCheckSale(i)) {
-            fout << product[i].getName()<<" " << product[i].getCompany()<<" " << product[i].getPrice()<<" " << product[i].getRegistation();
+            fout <<"3.2 등록 상품 조회" <<endl<< product[i].getName() << " " << product[i].getCompany() << " " << product[i].getPrice() << " " << product[i].getRegistation();
         }
         i++;
     }
@@ -411,7 +411,7 @@ void SoldoutUI::printSoldout(Soldout* control)
     int i = 0;
     while (productnumber > i) {
         if (control->searchSoldout(i)) {
-            fout << product[i].getName()<<" " << product[i].getCompany()<<" " << product[i].getPrice()<<" " << product[i].getRegistation();
+            fout<<"3.3 판매 완료 상품 조회"<<endl << product[i].getName() << " " << product[i].getCompany() << " " << product[i].getPrice() << " " << product[i].getRegistation();
         }
         i++;
     }
@@ -467,7 +467,7 @@ void SaleStatisticUI::printSaleStatistic(SaleStatistic* control)
     int i = 0;
     while (productnumber > i) {
         if (control->searchSaleStatistic(i)) {
-            fout << product[i].getName() << " " << product[i].getPrice() * product[i].getPurchased() << " " << product[i].getReview();
+            fout <<"5.1 판매 상품 통계"<<endl << product[i].getName() << " " << product[i].getPrice() * product[i].getPurchased() << " " << product[i].getReview();
         }
         i++;
     }
