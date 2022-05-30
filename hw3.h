@@ -24,12 +24,12 @@ class SignUp;
 class SignUpUI
 {
 private:
-	
+
 public:
-	void enterMemberInfo(SignUp*);
-	//void startInterface();
-	//void sendSignUpmsg();
-	
+    void enterMemberInfo(SignUp*);
+    //void startInterface();
+    //void sendSignUpmsg();
+
 
 };
 
@@ -47,11 +47,11 @@ public:
 
 class SignUp
 {
-	private:
+private:
 
-	public:
+public:
 
-		bool createNewMember(string, string, string, string);
+    bool createNewMember(string, string, string, string);
 
 };
 
@@ -70,18 +70,18 @@ class SignUp
 class Member
 {
 
-	private:
-		string ID;
-		string password;
-		string SSN;
-		string name;
+private:
+    string ID;
+    string password;
+    string SSN;
+    string name;
 
-	public:
-		Member(string, string, string, string);
-		bool createMember(Member*);
-		string validateID();
-		string validatePW();
-		void deleteMember();
+public:
+    Member(string, string, string, string);
+    bool createMember(Member*);
+    string validateID();
+    string validatePW();
+    void deleteMember();
 
 };
 
@@ -101,9 +101,9 @@ class LoginUI
 private:
 
 public:
-	void enterIDPW(Login*);
-	//void startInterface();
-	//void sendSignUpmsg();
+    void enterIDPW(Login*);
+    //void startInterface();
+    //void sendSignUpmsg();
 };
 
 
@@ -124,11 +124,57 @@ private:
 
 public:
 
-	bool validateID(string, string);
+    bool validateID(string, string);
 
 };
 
+class Registation
+{
+public:
+    void setProduct(string, string, int, int, string);
+};
 
+class RegistationUI
+{
+public:
+    void enterProduct(Registation*);
+};
+
+class CheckSale
+{
+public:
+    bool searchCheckSale(int);
+};
+
+class CheckSaleUI
+{
+public:
+    void printCheckSale(CheckSale*);
+};
+
+class Soldout
+{
+public:
+    bool searchSoldout(int);
+};
+
+class SoldoutUI
+{
+public:
+    void printSoldout(Soldout*);
+};
+
+class SaleStatistic
+{
+public:
+    bool searchSaleStatistic(int);
+};
+
+class SaleStatisticUI
+{
+public:
+    void printSaleStatistic(SaleStatistic*);
+};
 
 // Class : Product
 // Description : Product entity class
@@ -165,10 +211,39 @@ public:
         Review = 0;
         Seller = SellerID;
     }
+    void setName(string ProductName)
+    {
+        Name = ProductName;
+    }
+    void setCompany(string CompanyName)
+    {
+        Company = CompanyName;
+    }
+    void setSeller(string SellerID)
+    {
+        Seller = SellerID;
+    }
+    void setRegistation(int RegistationQuantity)
+    {
+        Registation = RegistationQuantity;
+    }
+    void setPurchased(int PurchasedQuantity)
+    {
+        Purchased = PurchasedQuantity;
+    }
+    void setPrice(int ProductPrice)
+    {
+        Price = ProductPrice;
+    }
+    void setReview(double AverageReview)
+    {
+        Review = AverageReview;
+    }
     string getName()
     {
         return Name;
-    }  string getCompany()
+    }
+    string getCompany()
     {
         return Company;
     }
@@ -196,7 +271,6 @@ public:
 
     ~Product() {}
 };
-
 
 
 
