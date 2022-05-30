@@ -275,7 +275,7 @@ void RegistationUI::enterProduct(Registation* control) {
     fin >> ProductName >> CompanyName >> ProductPrice >> RegistationQuantity;
     control->setProduct(ProductName, CompanyName, ProductPrice, RegistationQuantity, MemberID);
     productnumber++;
-    fout << "판매 의류 등록" << endl << ProductName << CompanyName << ProductPrice << RegistationQuantity << endl;
+    fout << "판매 의류 등록" << endl << ProductName <<" " << CompanyName<<" "<< ProductPrice <<" "<< RegistationQuantity << endl;
 
 }
 
@@ -352,7 +352,7 @@ void CheckSaleUI::printCheckSale(CheckSale* control)
     int i = 0;
     while (productnumber > i) {
         if (control->searchCheckSale(i)) {
-            fout << product[i].getName() << product[i].getCompany() << product[i].getPrice() << product[i].getRegistation();
+            fout << product[i].getName()<<" " << product[i].getCompany()<<" " << product[i].getPrice()<<" " << product[i].getRegistation();
         }
         i++;
     }
@@ -411,7 +411,7 @@ void SoldoutUI::printSoldout(Soldout* control)
     int i = 0;
     while (productnumber > i) {
         if (control->searchSoldout(i)) {
-            fout << product[i].getName() << product[i].getCompany() << product[i].getPrice() << product[i].getRegistation();
+            fout << product[i].getName()<<" " << product[i].getCompany()<<" " << product[i].getPrice()<<" " << product[i].getRegistation();
         }
         i++;
     }
