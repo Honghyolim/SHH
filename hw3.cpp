@@ -3,6 +3,14 @@
 
 using namespace std;
 
+
+//등록된 상품의 숫자를 저장하는 전역변수
+int productnumber = 0;
+// Product 저장하는 리스트 전역변수
+Product product[100];
+Buyer* now[100];
+int MemberSeq;
+
 // Member 저장하는 리스트 전역변수
 Member* memberList[100];
 int memberCnt = 0;
@@ -35,9 +43,9 @@ void SignUpUI::enterMemberInfo(SignUp* control)
 
     if (flag == true)
     {
-        fout <<"> "<< name << " " << SSN  << " " << ID << " " << password << endl << endl;
+        fout << "> " << name << " " << SSN << " " << ID << " " << password << endl << endl;
     }
- 
+
 }
 
 //Function : bool createNewMember(string ID, string password, string SSN, string name)
@@ -165,6 +173,105 @@ void logout()
     LogOut* control = new LogOut;
 }
 
+//Function : void registation()
+//Description: 상품등록을 진행하는 함수
+//Parameters : void
+//Return Value : void
+//Created : 2022/05/30 15:56 pm 
+//author : 황성윤
+//Revisions :
+//
+void registration()
+{
+    //control class 생성
+    Registation* control = new Registation;
+    //boundary class 생성
+    RegistationUI* boundary = new RegistationUI;
+    boundary->enterProduct(control);
+}
+
+
+//
+//Function : void checksale()
+//Description: 상품 등록 조회를 진행하는 함수
+//Parameters : void
+//Return Value : void
+//Created : 2022/05/30 16:01 pm 
+//author : 황성윤
+//Revisions :
+//
+void checksale()
+{
+    //control class 생성
+    CheckSale* control = new CheckSale;
+    //boundary class 생성
+    CheckSaleUI* boundary = new CheckSaleUI;
+    boundary->printCheckSale(control);
+}
+
+
+//Function : void soldout()
+//Description: 판매 완료 상품 조회를 진행하는 함수
+//Parameters : void
+//Return Value : void
+//Created : 2022/05/30 16:06 pm 
+//author : 황성윤
+//Revisions :
+//
+void soldout()
+{
+    //control class 생성
+    Soldout* control = new Soldout;
+    //boundary class 생성
+    SoldoutUI* boundary = new SoldoutUI;
+    boundary->printSoldout(control);
+}
+
+
+//Function : void salestatistic()
+//Description: 판매 통계 조회를 진행하는 함수
+//Parameters : void
+//Return Value : void
+//Created : 2022/05/30 16:07 pm 
+//author : 황성윤
+//Revisions :
+//
+void salestatistic()
+{
+    //control class 생성
+    SaleStatistic* control = new SaleStatistic;
+    //boundary class 생성
+    SaleStatisticUI* boundary = new SaleStatisticUI;
+    boundary->printSaleStatistic(control);
+}
+
+
+//4 1 상품검색
+void searchProduct() {
+    Search* searchControl = new Search;//control 생성
+    SearchUI* boundary = new SearchUI; //boundary class 생성
+    boundary->enterProductName(searchControl);
+}
+
+//4 2 최근 검색한 물건 구매
+void purchase() {
+    Purchase* purchaseControl = new Purchase;//control 생성
+    PurchaseUI* boundary = new PurchaseUI;//boundary class 생성
+    boundary->clickPurchase(purchaseControl);
+}
+
+void purchasedList() {
+    PurchasedList* control = new PurchasedList;//control 생성
+    PurchasedListUI* boundary = new PurchasedListUI;//boundary class 생성
+    boundary->searchPurchasedList(control);
+}
+
+void review() {
+    Review* control = new Review;//control 생성
+    ReviewUI* boundary = new ReviewUI;//boundary class 생성
+    boundary->selectProduct(control);
+}
+
 //Function : SignUpUI(SignUp*control)
 //Description: 바운더리 클래스 생성자
 //
@@ -176,7 +283,7 @@ void logout()
 //Revisions :
 //
 
-SignUpUI::SignUpUI(SignUp*control)
+SignUpUI::SignUpUI(SignUp* control)
 {
     this->control = control;
     this->enterMemberInfo(control);
@@ -243,7 +350,7 @@ SignOut::SignOut()
 //Revisions :
 //
 
-LoginUI* Login:: createBoundary(Login* control)
+LoginUI* Login::createBoundary(Login* control)
 {
     LoginUI* boundary = new LoginUI(control);
     return boundary;
@@ -277,9 +384,9 @@ LoginUI::LoginUI(Login* control)
 //Revisions :
 //
 
-Login::Login() 
+Login::Login()
 {
-    LoginUI*boundary = this->createBoundary(this);
+    LoginUI* boundary = this->createBoundary(this);
 }
 
 //Function : void enterIDPW(Login* control)
@@ -324,23 +431,34 @@ void LoginUI::enterIDPW(Login* control)
 //Revisions :
 //
 
+
+//Function : bool validateID(string ID, string password)
+//Description: ID와 PW가 유효한지 확인
+//
+//
+//Parameters : void
+//Return Value : void
+//Created : 2022/05/27 5:51 pm 
+//author : Hong Hyolim
+//Revisions :
+//
 bool Login::validateID(string ID, string password)
 {
     string password2;
     string ID2;
-    
-    //cout <<" ID : " <<ID << endl;
-    //cout << "PW :"<<password << endl;
+
+    //fout <<" ID : " <<ID << endl;
+    //fout << "PW :"<<password << endl;
 
     for (int i = 0; i < memberCnt; i++)
     {
         ID2 = memberList[i]->validateID();
-        //cout <<"ID2 : " << ID2 <<endl;
+        //fout <<"ID2 : " << ID2 <<endl;
         password2 = memberList[i]->validatePW();
-        //cout << password2;
-        if (ID.compare(ID2) == 0 && password.compare(password2) ==0 )
-        {   
-            currentMember = memberList[i];
+        //fout << password2;
+        if (ID.compare(ID2) == 0 && password.compare(password2) == 0)
+        {
+            MemberSeq = i;
             return true;
         }
     }
@@ -422,7 +540,7 @@ SignOutUI::SignOutUI(SignOut* control)
 
 void SignOut::deleteMember(SignOutUI* boundary)
 {
-    currentMember->deleteMember(boundary);   
+    currentMember->deleteMember(boundary);
 }
 
 //Function : void sendSignOutMsg(string ID);
@@ -438,7 +556,7 @@ void SignOut::deleteMember(SignOutUI* boundary)
 void SignOutUI::sendSignOutMsg(string ID)
 {
     fout << "1.2 회원탈퇴" << endl;
-    fout<<"> " << ID << endl << endl;
+    fout << "> " << ID << endl << endl;
 }
 
 //Function : void deleteMember(signOutUI* boundary);
@@ -478,7 +596,7 @@ void Member::deleteMember(SignOutUI* boundary)
 //Revisions :
 //
 
-LogOutUI :: LogOutUI(LogOut*control)
+LogOutUI::LogOutUI(LogOut* control)
 {
     this->control = control;
     control->logOut(this);
@@ -495,7 +613,7 @@ LogOutUI :: LogOutUI(LogOut*control)
 //Revisions :
 //
 
-LogOutUI* LogOut:: createBoundary(LogOut*control)
+LogOutUI* LogOut::createBoundary(LogOut* control)
 {
     LogOutUI* boundary = new LogOutUI(control);
     return boundary;
@@ -544,11 +662,421 @@ void LogOutUI::sendLogOutMsg(string ID)
 //Revisions :
 //
 
-void LogOut::logOut(LogOutUI*boundary)
+void LogOut::logOut(LogOutUI* boundary)
 {
     string ID = MemberID;
     MemberID = "";
     boundary->sendLogOutMsg(ID);
+}
+
+//
+//Function : void RegistationUI::enterProduct(Registation* control)
+//Description: 상품 정보를 입력받는 함수
+//Parameters : Registation*
+//Return Value : void
+//Created : 2022/05/30 15:59 pm 
+//author : 황성윤
+//Revisions :
+//
+void RegistationUI::enterProduct(Registation* control) {
+    string ProductName;
+    string CompanyName;
+    int ProductPrice;
+    int RegistationQuantity;
+
+    fin >> ProductName >> CompanyName >> ProductPrice >> RegistationQuantity;
+    control->setProduct(ProductName, CompanyName, ProductPrice, RegistationQuantity, MemberID);
+    productnumber++;
+    fout << "3.1 판매 의류 등록" << endl << ProductName << " " << CompanyName << " " << ProductPrice << " " << RegistationQuantity << endl;
+
+}
+
+
+//
+//Function : void CheckSaleUI::printCheckSale(CheckSale* control)
+//Description: 판매중인 상품을 출력하는 함수
+//Parameters : CheckSale*
+//Return Value : void
+//Created : 2022/05/30 16:01 pm 
+//author : 황성윤
+//Revisions :
+//
+void CheckSaleUI::printCheckSale(CheckSale* control)
+{
+    int i = 0;
+    while (productnumber > i) {
+        if (control->searchCheckSale(i)) {
+            fout << "3.2 등록 상품 조회" << endl << product[i].getName() << " " << product[i].getCompany() << " " << product[i].getPrice() << " " << product[i].getRegistation();
+        }
+        i++;
+    }
+}
+
+
+//
+//Function : void SoldoutUI::printSoldout(Soldout* control)
+//Description: 판매완료인 상품을 출력하는 함수
+//Parameters : Soldout*
+//Return Value : void
+//Created : 2022/05/30 16:07 pm 
+//author : 황성윤
+//Revisions :
+//
+void SoldoutUI::printSoldout(Soldout* control)
+{
+    int i = 0;
+    while (productnumber > i) {
+        if (control->searchSoldout(i)) {
+            fout << "3.3 판매 완료 상품 조회" << endl << product[i].getName() << " " << product[i].getCompany() << " " << product[i].getPrice() << " " << product[i].getRegistation();
+        }
+        i++;
+    }
+}
+
+
+//Function : void SaleStatisticUI::printSaleStatistic(SaleStatistic* control)
+//Description: 사용자가 판매한 상품인지 확인하는 함수
+//Parameters : SaleStatistic*
+//Return Value : void
+//Created : 2022/05/30 16:08 pm 
+//author : 황성윤
+//Revisions :
+//
+void SaleStatisticUI::printSaleStatistic(SaleStatistic* control)
+{
+    int i = 0;
+    while (productnumber > i) {
+        if (control->searchSaleStatistic(i)) {
+            fout << "5.1 판매 상품 통계" << endl << product[i].getName() << " " << product[i].getPrice() * product[i].getPurchased() << " " << product[i].getReview();
+        }
+        i++;
+    }
+}
+
+/*
+함수 이름 : SearchUI 생성자
+기능 : 검색할 상품명
+*/
+SearchUI::SearchUI() {}
+
+void SearchUI::enterProductName(Search* control) {
+    fin >> searchKeyword;
+    string result = control->showProduct(searchKeyword);
+    fout << "4.1. 상품 정보 검색" << endl;
+    fout << "> " << result << endl;
+}
+
+
+SearchUI::~SearchUI() {
+}
+
+PurchaseUI::PurchaseUI() {
+};
+
+void PurchaseUI::clickPurchase(Purchase* control) {
+    string purchaseResult = control->showPurchaseFinish();
+    fout << "4.2. 상품 구매" << endl;
+    fout << "> " << purchaseResult << endl;
+}
+
+PurchaseUI::~PurchaseUI() {
+}
+
+PurchasedListUI::PurchasedListUI() {}
+
+void PurchasedListUI::searchPurchasedList(PurchasedList* control) {
+    string purchasedList = control->getPurchasedProduct();
+
+    fout << "4.3. 상품 구매 내역 조회" << endl;
+    fout << "> " << purchasedList << endl;
+}
+
+void ReviewUI::selectProduct(Review* control) {
+    fin >> reviewProduct >> reviewPoint;
+    string result = control->selectProduct(reviewProduct, reviewPoint);
+    fout << "4.4. 상품 구매만족도 평가" << endl;
+    fout << "> " << result << endl;
+}
+
+//Function : void Registation::setProduct(string ProductName, string CompanyName, int ProductPrice, int RegistationQuantity, string SellerID)
+//Description: 상품 정보를 등록하는 함수
+//Parameters : string, string, int, int, string
+//Return Value : void
+//Created : 2022/05/30 15:59 pm 
+//author : 황성윤
+//Revisions :
+//
+void Registation::setProduct(string ProductName, string CompanyName, int ProductPrice, int RegistationQuantity, string SellerID)
+{
+    product[productnumber].setName(ProductName);
+    product[productnumber].setCompany(CompanyName);
+    product[productnumber].setPrice(ProductPrice);
+    product[productnumber].setRegistation(RegistationQuantity);
+    product[productnumber].setPurchased(0);
+    product[productnumber].setReview(0);
+    product[productnumber].setSeller(SellerID);
+
+}
+
+
+//
+//Function : bool CheckSale::searchCheckSale(int i)
+//Description: 판매중인 상품인지 확인 하는 함수
+//Parameters : int
+//Return Value : bool
+//Created : 2022/05/30 16:03 pm 
+//author : 황성윤
+//Revisions :
+//
+bool CheckSale::searchCheckSale(int i)
+{
+    if (product[i].getSeller() == MemberID) {
+        if (product[i].getRegistation() > product[i].getPurchased())
+        {
+            return true;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+//
+//Function : bool Soldout::searchSoldout(int i)
+//Description: 판매완료인 상품인지 확인 하는 함수
+//Parameters : int
+//Return Value : bool
+//Created : 2022/05/30 16:03 pm 
+//author : 황성윤
+//Revisions :
+//
+bool Soldout::searchSoldout(int i)
+{
+    if (product[i].getSeller() == MemberID) {
+        if (product[i].getRegistation() == product[i].getPurchased())
+        {
+            return true;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+//Function : bool SaleStatistic::searchSaleStatistic(int i)
+//Description: 사용자가 판매한 상품인지 확인하는 함수
+//Parameters : int
+//Return Value : bool
+//Created : 2022/05/30 16:08 pm 
+//author : 황성윤
+//Revisions :
+//
+
+bool SaleStatistic::searchSaleStatistic(int i)
+{
+    if (product[i].getSeller() == MemberID) {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+Search::Search() {}
+
+string Search::showProduct(string searchKeyword) {
+    for (int i = 0; i < productnumber; i++) {
+        if (product[i].getName() == searchKeyword) {
+            product[i].setRecentSearched();//false ->true
+            return product[i].getProductDetail();
+        }
+    }
+    return "상품 없음";
+}
+
+Search::~Search() {
+}
+
+
+Purchase::Purchase() {
+}
+
+string Purchase::showPurchaseFinish() {
+    for (int i = 0; i < productnumber; i++) {
+        if (product[i].getRecentSearched()) {
+            product[i].modifyProductQuantity();
+            now[MemberSeq] = new Buyer(memberList[MemberSeq]);
+            now[MemberSeq]->addPurchasedProduct(i);
+            result = product[i].getSeller() + " " + product[i].getName();
+            return result;
+        }
+    }
+    return "최근 검색한 상품이 없음";
+}
+
+PurchasedList::PurchasedList() {}
+
+string PurchasedList::getPurchasedProduct() {
+    string result = "";
+    if (now[MemberSeq]) {
+        int purchasedCount = now[MemberSeq]->getPurchasedCount(); //물건의 갯수
+        int* list = now[MemberSeq]->getPurchasedProduct();//buyer가 가진 구매목록 가져오기 (물건 번호로 저장)  
+        for (int i = 0; i < purchasedCount; i++) {
+            result += listPurchasedProduct(list[i]);
+        }
+    }
+    else {
+        result = "구매한 물건 없음";
+    }
+    return result;
+}
+
+string PurchasedList::listPurchasedProduct(int productNum) {
+    return product[productNum].getProductDetail();
+}
+
+string Review::selectProduct(string reviewProduct, int reviewPoint) {
+    string result;
+    for (int i = 0; i < productnumber; i++) {
+        if (product[i].getName() == reviewProduct) {
+            product[i].modifyProductReview(reviewPoint);
+            result = product[i].getSeller() + " " + product[i].getName() + " " + to_string(product[i].getReview());
+        }
+    }
+
+    return result;
+}
+
+// Class : Product
+// Description : Product entity class
+// Created : 2022/5/30 11:19 am
+// Author : 황성윤
+// mail : yooni0704@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
+
+Product::Product() {
+}
+
+void Product::SetProduct(string ProductName, string CompanyName, int ProductPrice, int RegistationQuantity, string SellerID)
+{
+    Name = ProductName;
+    Company = CompanyName;
+    Price = ProductPrice;
+    Registation = RegistationQuantity;
+    Purchased = 0;
+    Review = 0;
+    Seller = SellerID;
+    recentSearched = false; //S.J.T
+}
+
+void Product::setName(string ProductName)
+{
+    Name = ProductName;
+}
+void Product::setCompany(string CompanyName)
+{
+    Company = CompanyName;
+}
+void Product::setSeller(string SellerID)
+{
+    Seller = SellerID;
+}
+void Product::setRegistation(int RegistationQuantity)
+{
+    Registation = RegistationQuantity;
+}
+void Product::setPurchased(int PurchasedQuantity)
+{
+    Purchased = PurchasedQuantity;
+}
+void Product::setPrice(int ProductPrice)
+{
+    Price = ProductPrice;
+}
+void Product::setReview(double AverageReview)
+{
+    Review = AverageReview;
+}
+string Product::getName()
+{
+    return Name;
+}
+string Product::getCompany()
+{
+    return Company;
+}
+string Product::getSeller()
+{
+    return Seller;
+}
+int Product::getRegistation()
+{
+    return Registation;
+}
+int Product::getPurchased()
+{
+    return Purchased;
+}
+int Product::getPrice()
+{
+    return Price;
+}
+double Product::getReview()
+{
+    return Review;
+}
+bool Product::getRecentSearched() {
+    return recentSearched;
+}
+
+void Product::setRecentSearched() {
+    this->recentSearched = !this->recentSearched;
+}
+
+/*서준택*/
+void Product::modifyProductQuantity() {
+    Purchased++;
+}
+
+/*서준택*/
+string Product::getProductDetail() {
+    return Seller + " " + Name + " " + Company + " " + to_string(Price) + " " + to_string(Registation - Purchased) + " " + to_string(Review);
+}
+
+/*서준택*/
+void Product::modifyProductReview(int reviewPoint) {
+    Review = (Review * (Purchased - 1) + reviewPoint) / Purchased;
+}
+
+Product::~Product() {}
+
+Buyer::Buyer(Member* member) {
+    purchasedList = new int[10];
+}
+
+void Buyer::addPurchasedProduct(int purchased) {
+    purchasedList[purchasedCount] = purchased;
+    purchasedCount++;
+}
+int* Buyer::getPurchasedProduct() {
+    int* purchasedIndexList = new int[purchasedCount + 1];
+    for (int i = 0; i < purchasedCount; i++) {
+        purchasedIndexList[i] = purchasedList[i];
+    }
+    return purchasedIndexList;
+}
+
+int Buyer::getPurchasedCount() {
+    return purchasedCount;
 }
 
 //Function : void doTask()
@@ -568,11 +1096,11 @@ void doTask()
 
     int menu_level_1 = 0, menu_level_2 = 0;
     int is_program_exit = 0;
- 
+
     while (!is_program_exit)
     {
         // 입력파일에서 메뉴 숫자 2개를 읽기
-  
+
 
         fin >> menu_level_1;
         fin >> menu_level_2;
@@ -581,57 +1109,109 @@ void doTask()
         // 메뉴 구분 및 해당 연산 수행
         switch (menu_level_1)
         {
-            case 1:
+        case 1:
+        {
+            switch (menu_level_2)
             {
-                switch (menu_level_2)
-                {
-                case 1:   // "1.1. 회원가입“ 메뉴 부분
-                {
-                    join();
+            case 1:   // "1.1. 회원가입“ 메뉴 부분
+            {
+                join();
 
-                    break;
-                }
-                case 2:
-                {
-                    withdraw();
-                    break;
-                }
-                }
                 break;
             }
             case 2:
             {
-                switch (menu_level_2)
-                {
-                case 1:   // "2.1. 로그인“ 메뉴 부분
-                {
-                    //cout << "login" << endl;
-                    login();
-
-                    break;
-                }
-                case 2:
-                {
-                    logout();
-                    break;
-                }
-                }
+                withdraw();
                 break;
             }
-            case 6:
-            {
-                switch (menu_level_2)
-                {
-                case 1:   // "6.1. 종료“ 메뉴 부분
-                {
-
-                     // program_exit();
-                     is_program_exit = 1;
-                     break;;
-                }
-                }
-
             }
+            break;
+        }
+        case 2:
+        {
+            switch (menu_level_2)
+            {
+            case 1:   // "2.1. 로그인“ 메뉴 부분
+            {
+                //cout << "login" << endl;
+                login();
+
+                break;
+            }
+            case 2:
+            {
+                logout();
+                break;
+            }
+            }
+            break;
+        }
+        case 3:
+        {
+            switch (menu_level_2)
+            {
+            case 1: // "3.1 판매 의류 등록" 메뉴 부분
+            {
+                registration();
+                break;
+            }
+            case 2: // "3.2 등록 상품 조회" 메뉴 부분
+            {
+                checksale();
+                break;
+            }
+            case 3: // "3.3 판매 완료 상품 조회" 메뉴 부분
+            {
+                soldout();
+                break;
+            }
+            }
+            break;
+        }
+        case 4:
+        {
+            switch (menu_level_2) {
+            case 1:
+                searchProduct();
+                break;
+            case 2:
+                purchase();
+                break;
+            case 3:
+                purchasedList();
+                break;
+            case 4:
+                review();
+                break;
+            }
+            break;
+        }
+        case 5:
+        {
+            switch (menu_level_2)
+            {
+            case 1:   // "5.1 상품 판매 통계" 메뉴 부분
+            {
+                salestatistic();
+                break;
+            }
+            }
+            break;
+        }
+        case 6:
+        {
+            switch (menu_level_2)
+            {
+            case 1:   // "6.1. 종료“ 메뉴 부분
+            {
+
+                // program_exit();
+                is_program_exit = 1;
+                break;;
+            }
+            }
+
+        }
         }
     }
     return;
