@@ -46,11 +46,19 @@ public:
 
 class SignUp
 {
+<<<<<<< HEAD
 	private:
 		SignUpUI* createBoundary(SignUp*);
 	public:
 		SignUp();
 		bool createNewMember(string, string, string, string);
+=======
+private:
+	SignUpUI* createBoundary(SignUp*);
+public:
+	SignUp();
+	bool createNewMember(string, string, string, string);
+>>>>>>> 2f876ab664031906be75aad914090049bdb0f292
 
 };
 class SignOutUI;
@@ -90,6 +98,7 @@ public:
 
 };
 
+<<<<<<< HEAD
 class Seller : Member
 {
 privat:
@@ -101,6 +110,8 @@ privat:
 	virtual int getRegistationCount();
 };
 
+=======
+>>>>>>> 2f876ab664031906be75aad914090049bdb0f292
 // Class : Product
 // Description : Product entity class
 // Created : 2022/5/30 11:19 am
@@ -351,21 +362,33 @@ public:
 class CheckSale
 {
 public:
+<<<<<<< HEAD
 	string searchCheckSale(int);
+=======
+	bool searchCheckSale(int);
+>>>>>>> 2f876ab664031906be75aad914090049bdb0f292
 };
 
 
 class Soldout
 {
 public:
+<<<<<<< HEAD
 	string searchSoldout(int);
+=======
+	bool searchSoldout(int);
+>>>>>>> 2f876ab664031906be75aad914090049bdb0f292
 };
 
 
 class SaleStatistic
 {
 public:
+<<<<<<< HEAD
 	string searchSaleStatistic(int);
+=======
+	bool searchSaleStatistic(int);
+>>>>>>> 2f876ab664031906be75aad914090049bdb0f292
 };
 
 class Search {
