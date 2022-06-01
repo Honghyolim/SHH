@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
@@ -77,16 +78,7 @@ public:
 
 };
 
-// Class : Buyer
-// Description : 구매자 entity class
-// Created : 2022/6/1 6:50 pm
-// Author : 서준택
-// mail : jwutn908@gmail.com
-// Revisions :
-//   1. When& Who :
-//      What :
-// 
-//
+
 class Buyer : Member
 {
 private:
@@ -100,13 +92,22 @@ public:
 
 };
 
+// Class : Seller
+// Description : Seller entity class
+// Created : 2022/6/2 03:08 am
+// Author : 황성윤
+// mail : yooni0704@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
 class Seller : Member
 {
-privat:
+private:
 	int* registationList;
 	int registationCount;
+public:
 	Seller(Member* member);
-	virtual void addRegistationProduct(int purchased);
+	virtual void addRegistationProduct(int registation);
 	virtual int* getRegistationProduct();
 	virtual int getRegistationCount();
 };
@@ -285,44 +286,124 @@ public:
 	LogOut();
 	void logOut(LogOutUI*);
 };
-class Registation;
+// Class : Registation
+// Description : 판매 의류 등록 control 클래스
+// Created : 2022/6/2 3:36 am
+// Author : 황성윤
+// mail : yooni0704@gamil.com
+// Revisions :
+//	1. When& Who :
+//	   What :
+class Registation
+{
+public:
+	void setProduct(string, string, int, int, string);
+};
+
+// Class : CheckSale
+// Description : 등록 상품 조회 control 클래스
+// Created : 2022/6/2 3:36 am
+// Author : 황성윤
+// mail : yooni0704@gamil.com
+// Revisions :
+//	1. When& Who :
+//	   What :
+class CheckSale
+{
+public:
+	string searchCheckSale(int);
+};
+
+// Class : Soldout
+// Description : 판매 완료 상품 조회 control 클래스
+// Created : 2022/6/2 3:36 am
+// Author : 황성윤
+// mail : yooni0704@gamil.com
+// Revisions :
+//	1. When& Who :
+//	   What :
+class Soldout
+{
+public:
+	string searchSoldout(int);
+};
+
+// Class : SaleStatistic
+// Description : 판매 상품 통계 control 클래스
+// Created : 2022/6/2 3:36 am
+// Author : 황성윤
+// mail : yooni0704@gamil.com
+// Revisions :
+//	1. When& Who :
+//	   What :
+
+class SaleStatistic
+{
+public:
+	string searchSaleStatistic(int);
+};
+
+// Class : Registation
+// Description : 판매 의류 등록 boundary 클래스
+// Created : 2022/6/2 3:36 am
+// Author : 황성윤
+// mail : yooni0704@gamil.com
+// Revisions :
+//	1. When& Who :
+//	   What :
+
 class RegistationUI
 {
 public:
 	void enterProduct(Registation*);
 };
+// Class : CheckSaleUI
+// Description : 등록 상품 조회 boundary 클래스
+// Created : 2022/6/2 3:36 am
+// Author : 황성윤
+// mail : yooni0704@gamil.com
+// Revisions :
+//	1. When& Who :
+//	   What :
 
-class CheckSale;
 class CheckSaleUI
 {
 public:
 	void printCheckSale(CheckSale*);
 };
 
-class Soldout;
+// Class : SoldoutUI
+// Description : 판매 완료 상품 조회 boundary 클래스
+// Created : 2022/6/2 3:36 am
+// Author : 황성윤
+// mail : yooni0704@gamil.com
+// Revisions :
+//	1. When& Who :
+//	   What :
+
+
 class SoldoutUI
 {
 public:
 	void printSoldout(Soldout*);
 };
 
-class SaleStatistic;
+// Class : SaleStatistic
+// Description : 판매 상품 통계 boundary 클래스
+// Created : 2022/6/2 3:36 am
+// Author : 황성윤
+// mail : yooni0704@gamil.com
+// Revisions :
+//	1. When& Who :
+//	   What :
+
+
 class SaleStatisticUI
 {
 public:
 	void printSaleStatistic(SaleStatistic*);
 };
 
-// Class : SearchUI
-// Description : 검색 boundary class
-// Created : 2022/6/1 16:51 pm
-// Author : 서준택
-// mail : jwutn908@gmail.com
-// Revisions :
-//   1. When& Who :
-//      What :
-// 
-//
 class Search;
 class SearchUI {
 private:
@@ -335,16 +416,6 @@ public:
 	~SearchUI();
 };
 
-// Class : PurchaseUI
-// Description : 구매 boundary class
-// Created : 2022/6/1 16:51 pm
-// Author : 서준택
-// mail : jwutn908@gmail.com
-// Revisions :
-//   1. When& Who :
-//      What :
-// 
-//
 class Purchase;
 class PurchaseUI {
 private:
@@ -354,16 +425,6 @@ public:
 	~PurchaseUI();
 };
 
-// Class : PurchasedListUI
-// Description : 상품 구매 내역 조회 boundary class
-// Created : 2022/6/1 16:51 pm
-// Author : 서준택
-// mail : jwutn908@gmail.com
-// Revisions :
-//   1. When& Who :
-//      What :
-// 
-//
 class PurchasedList;
 class PurchasedListUI {
 public:
@@ -371,16 +432,6 @@ public:
 	void searchPurchasedList(PurchasedList*);
 };
 
-// Class : ReviewUI
-// Description : 만족도 평가 boundary class
-// Created : 2022/6/1 16:51 pm
-// Author : 서준택
-// mail : jwutn908@gmail.com
-// Revisions :
-//   1. When& Who :
-//      What :
-// 
-//
 class Review;
 class ReviewUI {
 private:
@@ -391,43 +442,6 @@ public:
 	void selectProduct(Review*);
 };
 
-class Registation
-{
-public:
-	void setProduct(string, string, int, int, string);
-};
-
-
-class CheckSale
-{
-public:
-	string searchCheckSale(int);
-};
-
-
-class Soldout
-{
-public:
-	string searchSoldout(int);
-};
-
-
-class SaleStatistic
-{
-public:
-	string searchSaleStatistic(int);
-};
-
-// Class : Search
-// Description : 검색 control class
-// Created : 2022/6/1 5:36 pm
-// Author : 서준택
-// mail : jwutn908@gmail.com
-// Revisions :
-//   1. When& Who :
-//      What :
-// 
-//
 class Search {
 private:
 
@@ -437,16 +451,6 @@ public:
 	~Search();
 };
 
-// Class : Purchase
-// Description : 상품 구매 control class
-// Created : 2022/6/1 5:36 pm
-// Author : 서준택
-// mail : jwutn908@gmail.com
-// Revisions :
-//   1. When& Who :
-//      What :
-// 
-//
 class Purchase {
 private:
 	string recentSearchWord;
@@ -459,16 +463,6 @@ public:
 	string showPurchaseFinish();
 };
 
-// Class : PurchasedList
-// Description : 상품 구매 내역 조회 control class
-// Created : 2022/6/1 5:36 pm
-// Author : 서준택
-// mail : jwutn908@gmail.com
-// Revisions :
-//   1. When& Who :
-//      What :
-// 
-//
 class PurchasedList {
 public:
 	PurchasedList();
@@ -476,16 +470,6 @@ public:
 	string listPurchasedProduct(int purchased);
 };
 
-// Class : Review
-// Description : 만족도 평가 control class
-// Created : 2022/6/1 16:51 pm
-// Author : 서준택
-// mail : jwutn908@gmail.com
-// Revisions :
-//   1. When& Who :
-//      What :
-// 
-//
 class Review {
 public:
 	Review() {};
