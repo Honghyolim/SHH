@@ -77,6 +77,16 @@ public:
 
 };
 
+// Class : Buyer
+// Description : 구매자 entity class
+// Created : 2022/6/1 6:50 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class Buyer : Member
 {
 private:
@@ -292,6 +302,16 @@ public:
 	void printSaleStatistic(SaleStatistic*);
 };
 
+// Class : SearchUI
+// Description : 검색 boundary class
+// Created : 2022/6/1 16:51 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class Search;
 class SearchUI {
 private:
@@ -304,6 +324,16 @@ public:
 	~SearchUI();
 };
 
+// Class : PurchaseUI
+// Description : 구매 boundary class
+// Created : 2022/6/1 16:51 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class Purchase;
 class PurchaseUI {
 private:
@@ -313,6 +343,16 @@ public:
 	~PurchaseUI();
 };
 
+// Class : PurchasedListUI
+// Description : 상품 구매 내역 조회 boundary class
+// Created : 2022/6/1 16:51 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class PurchasedList;
 class PurchasedListUI {
 public:
@@ -320,6 +360,16 @@ public:
 	void searchPurchasedList(PurchasedList*);
 };
 
+// Class : ReviewUI
+// Description : 만족도 평가 boundary class
+// Created : 2022/6/1 16:51 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class Review;
 class ReviewUI {
 private:
@@ -357,6 +407,16 @@ public:
 	bool searchSaleStatistic(int);
 };
 
+// Class : Search
+// Description : 검색 control class
+// Created : 2022/6/1 5:36 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class Search {
 private:
 
@@ -366,6 +426,16 @@ public:
 	~Search();
 };
 
+// Class : Purchase
+// Description : 상품 구매 control class
+// Created : 2022/6/1 5:36 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class Purchase {
 private:
 	string recentSearchWord;
@@ -378,6 +448,16 @@ public:
 	string showPurchaseFinish();
 };
 
+// Class : PurchasedList
+// Description : 상품 구매 내역 조회 control class
+// Created : 2022/6/1 5:36 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class PurchasedList {
 public:
 	PurchasedList();
@@ -385,6 +465,16 @@ public:
 	string listPurchasedProduct(int purchased);
 };
 
+// Class : Review
+// Description : 만족도 평가 control class
+// Created : 2022/6/1 16:51 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class Review {
 public:
 	Review() {};

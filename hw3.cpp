@@ -246,26 +246,65 @@ void salestatistic()
 }
 
 
-//4 1 상품검색
+//Function : void searchProduct
+//Description: 검색을 진행하는 함수
+//
+//
+//Parameters : void
+//Return Value : void
+//Created : 2022/06/1 19:01 am 
+//author : 서준택
+//Revisions :
+//
 void searchProduct() {
     Search* searchControl = new Search;//control 생성
     SearchUI* boundary = new SearchUI; //boundary class 생성
     boundary->enterProductName(searchControl);
 }
 
-//4 2 최근 검색한 물건 구매
+
+//Function : void purchase()
+//Description: 상품 구매를 진행하는 함수
+//
+//
+//Parameters : void
+//Return Value : void
+//Created : 2022/06/1 19:01 am 
+//author : 서준택
+//Revisions :
+//
 void purchase() {
     Purchase* purchaseControl = new Purchase;//control 생성
     PurchaseUI* boundary = new PurchaseUI;//boundary class 생성
     boundary->clickPurchase(purchaseControl);
 }
 
+//Function : void purchasedList()
+//Description: 상품 구매 내역 조회를 진행하는 함수
+//
+//
+//Parameters : void
+//Return Value : void
+//Created : 2022/06/1 19:01 am 
+//author : 서준택
+//Revisions :
+//
 void purchasedList() {
     PurchasedList* control = new PurchasedList;//control 생성
     PurchasedListUI* boundary = new PurchasedListUI;//boundary class 생성
     boundary->searchPurchasedList(control);
 }
 
+//Function : void review()
+//Description: 만족도 평가를 진행하는 함수
+//
+//
+//Parameters : void
+//Return Value : void
+//Created : 2022/06/1 19:01 am 
+//author : 서준택
+//Revisions :
+//
 void review() {
     Review* control = new Review;//control 생성
     ReviewUI* boundary = new ReviewUI;//boundary class 생성
@@ -419,17 +458,6 @@ void LoginUI::enterIDPW(Login* control)
         fout << "로그인 실패" << endl << endl;
     }
 }
-
-//Function : bool validateID(string ID, string password)
-//Description: ID와 PW가 유효한지 확인
-//
-//
-//Parameters : void
-//Return Value : void
-//Created : 2022/05/27 5:51 pm 
-//author : Hong Hyolim
-//Revisions :
-//
 
 
 //Function : bool validateID(string ID, string password)
@@ -757,8 +785,26 @@ void SaleStatisticUI::printSaleStatistic(SaleStatistic* control)
 함수 이름 : SearchUI 생성자
 기능 : 검색할 상품명
 */
+
+//Function : SearchUI()
+//Description: 생성자
+//Parameters : 
+//Return Value : 
+//Created : 2022/06/01 16:08 pm 
+//author : 서준택
+//Revisions :
+//
 SearchUI::SearchUI() {}
 
+
+//Function : void enterProductName(Search* control)
+//Description: 검색어를 입력받고 검색결과를 출력파일에 쓰는 함수
+//Parameters : Search*
+//Return Value : void
+//Created : 2022/06/01 16:08 pm 
+//author : 서준택
+//Revisions :
+//
 void SearchUI::enterProductName(Search* control) {
     fin >> searchKeyword;
     string result = control->showProduct(searchKeyword);
@@ -767,23 +813,71 @@ void SearchUI::enterProductName(Search* control) {
 }
 
 
+//Function : ~SearchUI()
+//Description: 소멸자
+//Parameters : 
+//Return Value : 
+//Created : 2022/06/01 16:08 pm 
+//author : 서준택
+//Revisions :
+//
 SearchUI::~SearchUI() {
 }
 
+//Function : PurchaseUI()
+//Description: 생성자
+//Parameters : 
+//Return Value : 
+//Created : 2022/06/01 16:08 pm 
+//author : 서준택
+//Revisions :
+//
 PurchaseUI::PurchaseUI() {
 };
 
+//Function : void clickPurchase(Purchase* control)
+//Description: 구매한 상품의 판매자ID와 상품명을 받아서 출력파일에 쓰는 함수
+//Parameters : Purchase*
+//Return Value : void
+//Created : 2022/06/01 17:03 pm 
+//author : 서준택
+//Revisions :
+//
 void PurchaseUI::clickPurchase(Purchase* control) {
     string purchaseResult = control->showPurchaseFinish();
     fout << "4.2. 상품 구매" << endl;
     fout << "> " << purchaseResult << endl;
 }
 
+//Function : ~PurchaseUI()
+//Description: 소멸자
+//Parameters : 
+//Return Value : 
+//Created : 2022/06/01 16:08 pm 
+//author : 서준택
+//Revisions :
+//
 PurchaseUI::~PurchaseUI() {
 }
 
+//Function : PurchasedListUI()
+//Description: 생성자
+//Parameters : 
+//Return Value : 
+//Created : 2022/06/01 16:08 pm 
+//author : 서준택
+//Revisions :
+//
 PurchasedListUI::PurchasedListUI() {}
 
+//Function : void searchPurchasedList(PurchasedList* control)
+//Description: 구매 상품 리스트를 받은 후 상세정보를 출력파일에 쓰는 함수
+//Parameters : PurchasedList*
+//Return Value : void
+//Created : 2022/06/01 20:03 pm 
+//author : 서준택
+//Revisions :
+//
 void PurchasedListUI::searchPurchasedList(PurchasedList* control) {
     string purchasedList = control->getPurchasedProduct();
 
@@ -791,6 +885,14 @@ void PurchasedListUI::searchPurchasedList(PurchasedList* control) {
     fout << "> " << purchasedList << endl;
 }
 
+//Function : void selectProduct(Review* control)
+//Description: 만족도를 평가할 상품과 만족도 평가 점수를 받아서 출력파일에 쓰는 함수
+//Parameters : Review*
+//Return Value : void
+//Created : 2022/06/01 20:27 pm 
+//author : 서준택
+//Revisions :
+//
 void ReviewUI::selectProduct(Review* control) {
     fin >> reviewProduct >> reviewPoint;
     string result = control->selectProduct(reviewProduct, reviewPoint);
@@ -887,8 +989,27 @@ bool SaleStatistic::searchSaleStatistic(int i)
     }
 }
 
+// Class : Search
+// Description : 검색 control class
+// Created : 2022/6/1 5:36 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 Search::Search() {}
 
+//Function : string showProduct(string searchKeyword)
+//Description: 바운더리에서 만든 검색어를 받아서 프로덕트리스트에서 검색어와 이름이 똑같은 애를 찾고 상품 구매처리를 위해 검색을 
+// 했다는 것을 표시한다. 검색했을때 검색어랑 물건이름이 같으면 트루로 바꿔주고 프로덕트 배열에 프로덕트디테일은 넣은 후 반환하는 함수.
+//Parameters : int
+//Return Value : bool
+//Created : 2022/06/01 16:08 pm 
+//author : 서준택
+//Revisions :
+//
 string Search::showProduct(string searchKeyword) {
     for (int i = 0; i < productnumber; i++) {
         if (product[i].getName() == searchKeyword) {
@@ -902,10 +1023,27 @@ string Search::showProduct(string searchKeyword) {
 Search::~Search() {
 }
 
-
+// Class : Purchase
+// Description : 상품 구매 control class
+// Created : 2022/6/1 5:36 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 Purchase::Purchase() {
 }
 
+//Function : string showPurchaseFinish()
+//Description: 파는 사람과 물건의 번호를 스트링으로 바운더리에게 반환하는 함수
+//Parameters : 
+//Return Value : string
+//Created : 2022/05/30 16:08 pm 
+//author : 서준택
+//Revisions :
+//
 string Purchase::showPurchaseFinish() {
     for (int i = 0; i < productnumber; i++) {
         if (product[i].getRecentSearched()) {
@@ -921,6 +1059,14 @@ string Purchase::showPurchaseFinish() {
 
 PurchasedList::PurchasedList() {}
 
+//Function : string getPurchasedProduct()
+//Description: 구매목록 리스트를 가져오는 함수
+//Parameters : 
+//Return Value : string
+//Created : 2022/06/01 22:08 pm 
+//author : 서준택
+//Revisions :
+//
 string PurchasedList::getPurchasedProduct() {
     string result = "";
     if (now[MemberSeq]) {
@@ -936,10 +1082,28 @@ string PurchasedList::getPurchasedProduct() {
     return result;
 }
 
+
+//Function : string listPurchasedProduct(int productNum)
+//Description: 구매 내역을 반환해주는 함수
+//Parameters : int productNum
+//Return Value : string
+//Created : 2022/06/01 22:08 pm 
+//author : 서준택
+//Revisions :
+//
 string PurchasedList::listPurchasedProduct(int productNum) {
     return product[productNum].getProductDetail();
 }
 
+
+//Function : string getPurchasedProduct()
+//Description: 만족도 평가한 결과를 반환하는 함수
+//Parameters : 
+//Return Value : string
+//Created : 2022/06/01 22:08 pm 
+//author : 서준택
+//Revisions :
+//
 string Review::selectProduct(string reviewProduct, int reviewPoint) {
     string result;
     for (int i = 0; i < productnumber; i++) {
@@ -975,7 +1139,7 @@ void Product::SetProduct(string ProductName, string CompanyName, int ProductPric
     Purchased = 0;
     Review = 0;
     Seller = SellerID;
-    recentSearched = false; //S.J.T
+    recentSearched = false;
 }
 
 void Product::setName(string ProductName)
@@ -1042,17 +1206,45 @@ void Product::setRecentSearched() {
     this->recentSearched = !this->recentSearched;
 }
 
-/*서준택*/
+
+//Function : void modifyProductQuantity()
+//Description: 구매 상품을 추가하는 함수
+//
+//
+//Parameters : 
+//Return Value : 
+//Created : 2022/06/1 6:50 pm 
+//author : 서준택
+//Revisions :
+//
 void Product::modifyProductQuantity() {
     Purchased++;
 }
 
-/*서준택*/
+//Function : string getProductDetail()
+//Description: 상품의 상세정보를 가져오는 함수
+//
+//
+//Parameters : 
+//Return Value : string, string, string, string
+//Created : 2022/06/1 6:50 pm 
+//author : 서준택
+//Revisions :
+//
 string Product::getProductDetail() {
     return Seller + " " + Name + " " + Company + " " + to_string(Price) + " " + to_string(Registation - Purchased) + " " + to_string(Review);
 }
 
-/*서준택*/
+//Function : void modifyProductReview(int reviewPoint)
+//Description: 만족도를 수정하는 함수
+//
+//
+//Parameters : int reviewPoint
+//Return Value : 
+//Created : 2022/06/1 6:50 pm 
+//author : 서준택
+//Revisions :
+//
 void Product::modifyProductReview(int reviewPoint) {
     Review = (Review * (Purchased - 1) + reviewPoint) / Purchased;
 }
@@ -1063,10 +1255,31 @@ Buyer::Buyer(Member* member) {
     purchasedList = new int[10];
 }
 
+//Function : void addPurchasedProduct(int purchased)
+//Description: 구매하기를 누룬 상품의 번호를 구매한리스트에 추가하는 함수
+//
+//
+//Parameters : 
+//Return Value : 
+//Created : 2022/06/1 6:50 pm 
+//author : 서준택
+//Revisions :
+//
 void Buyer::addPurchasedProduct(int purchased) {
     purchasedList[purchasedCount] = purchased;
     purchasedCount++;
 }
+
+//Function : int* getPurchasedProduct()
+//Description: 구매목록을 물건번호로 저장 하는 함수
+//
+//
+//Parameters : 
+//Return Value : purchasedIndexList
+//Created : 2022/06/1 6:50 pm 
+//author : 서준택
+//Revisions :
+//
 int* Buyer::getPurchasedProduct() {
     int* purchasedIndexList = new int[purchasedCount + 1];
     for (int i = 0; i < purchasedCount; i++) {
@@ -1075,6 +1288,16 @@ int* Buyer::getPurchasedProduct() {
     return purchasedIndexList;
 }
 
+//Function : int getPurchasedCount()
+//Description: 구매 상품 물건 수를 반환하는 함수
+//
+//
+//Parameters : 
+//Return Value : purchasedCount
+//Created : 2022/06/1 6:50 pm 
+//author : 서준택
+//Revisions :
+//
 int Buyer::getPurchasedCount() {
     return purchasedCount;
 }
