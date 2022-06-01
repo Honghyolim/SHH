@@ -1,5 +1,4 @@
-// Project3.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
-//
+//hw3.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
 
 #include "pch.h"
 #include <iostream>
@@ -715,16 +714,9 @@ void RegistationUI::enterProduct(Registation* control) {
 //
 void CheckSaleUI::printCheckSale(CheckSale* control)
 {
-    int i = 0;
     fout << "3.2 등록 상품 조회" << endl;
-    int registationCount = snow[MemberSeq]->getRegistationCount(); //물건의 갯수
-    while (registationCount > i) {
-        if ("" != control->searchCheckSale(i)) {
-            fout << control->searchCheckSale(i) << endl;
-        }
+    fout << control->searchCheckSale();
 
-        i++;
-    }
 }
 
 
@@ -739,15 +731,8 @@ void CheckSaleUI::printCheckSale(CheckSale* control)
 //
 void SoldoutUI::printSoldout(Soldout* control)
 {
-    int i = 0;
-    int registationCount = snow[MemberSeq]->getRegistationCount(); //물건의 갯수
     fout << "3.3 판매 완료 상품 조회" << endl;
-    while (registationCount > i) {
-        if ("" != control->searchSoldout(i)) {
-            fout << control->searchSoldout(i) << endl;
-        }
-        i++;
-    }
+    fout << control->searchSoldout() << endl;
 }
 
 
@@ -761,15 +746,8 @@ void SoldoutUI::printSoldout(Soldout* control)
 //
 void SaleStatisticUI::printSaleStatistic(SaleStatistic* control)
 {
-    int i = 0;
-    int registationCount = snow[MemberSeq]->getRegistationCount(); //물건의 갯수
     fout << "5.1 판매 상품 통계" << endl;
-    while (registationCount + 1 > i) {
-        if ("" != control->searchSaleStatistic(i)) {
-            fout << control->searchSaleStatistic(i) << endl;
-        }
-        i++;
-    }
+    fout << control->searchSaleStatistic() << endl;
 }
 
 /*
@@ -847,13 +825,17 @@ void Registation::setProduct(string ProductName, string CompanyName, int Product
 //author : 황성윤
 //Revisions :
 //
-string CheckSale::searchCheckSale(int i)
+string CheckSale::searchCheckSale()
 {
+    int i = 0;
     int* list = snow[MemberSeq]->getRegistationProduct();
     int registationCount = snow[MemberSeq]->getRegistationCount(); //물건의 갯수
     string result = "";
-    if (product[list[i]].getPurchased() != product[list[i]].getRegistation()) {
-        result = ">" + product[list[i]].getName() + " " + product[list[i]].getCompany() + " " + to_string(product[list[i]].getPrice()) + " " + to_string(product[list[i]].getRegistation());
+    while (registationCount > i) {
+        if (product[list[i]].getPurchased() != product[list[i]].getRegistation()) {
+            result += ">" + product[list[i]].getName() + " " + product[list[i]].getCompany() + " " + to_string(product[list[i]].getPrice()) + " " + to_string(product[list[i]].getRegistation()) + "\n";
+        }
+        i++;
     }
     return result;
 
@@ -869,13 +851,17 @@ string CheckSale::searchCheckSale(int i)
 //author : 황성윤
 //Revisions :
 //
-string Soldout::searchSoldout(int i)
+string Soldout::searchSoldout()
 {
+    int i = 0;
     int* list = snow[MemberSeq]->getRegistationProduct();
     int registationCount = snow[MemberSeq]->getRegistationCount();
     string result = "";
-    if (product[list[i]].getPurchased() == product[list[i]].getRegistation()) {
-        result = ">" + product[list[i]].getName() + " " + product[list[i]].getCompany() + " " + to_string(product[list[i]].getPrice()) + " " + to_string(product[list[i]].getPurchased()) + " " + to_string(lround(product[list[i]].getReview()));
+    while (registationCount > i) {
+        if (product[list[i]].getPurchased() == product[list[i]].getRegistation()) {
+            result += ">" + product[list[i]].getName() + " " + product[list[i]].getCompany() + " " + to_string(product[list[i]].getPrice()) + " " + to_string(product[list[i]].getPurchased()) + " " + to_string(lround(product[list[i]].getReview())) + "\n";
+        }
+        i++;
     }
     return result;
 
@@ -891,12 +877,18 @@ string Soldout::searchSoldout(int i)
 //Revisions :
 //
 
-string SaleStatistic::searchSaleStatistic(int i)
+string SaleStatistic::searchSaleStatistic()
 {
+    int i = 0;
     int* list = snow[MemberSeq]->getRegistationProduct();//buyer가 가진 구매목록 가져오기 (물건 번호로 저장)  
     int registationCount = snow[MemberSeq]->getRegistationCount(); //물건의 갯수 
     string result = "";
-    result = ">" + product[list[i]].getName() + " " + to_string(product[list[i]].getPrice() * product[list[i]].getPurchased()) + " " + to_string(lround(product[list[i]].getReview()));
+    while (registationCount > i) {
+        if (0 != product[list[i]].getPurchased()) {
+            result += ">" + product[list[i]].getName() + " " + to_string(product[list[i]].getPrice() * product[list[i]].getPurchased()) + " " + to_string(lround(product[list[i]].getReview())) + "\n";
+        }
+        i++;
+    }
     return result;
 
 }
