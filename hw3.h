@@ -15,8 +15,8 @@ void doTask();
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//	1. When& Who : 2022/06/01 3:12 pm by 홍효림
+//	   What : control atrribute 추가, 생성자 선언
 // 
 //
 
@@ -24,15 +24,14 @@ class SignUp;
 class SignUpUI
 {
 private:
-
+	SignUp* control;
 public:
-    void enterMemberInfo(SignUp*);
-    //void startInterface();
-    //void sendSignUpmsg();
-
+	SignUpUI(SignUp*);
+	void enterMemberInfo(SignUp*);
+	//void startInterface();
+	//void sendSignUpmsg();
 
 };
-
 
 // Class : SignUp
 // Description : 회원가입 control class
@@ -40,49 +39,115 @@ public:
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//	1. When& Who : 2022/06/01 3:13 pm by 홍효림
+//	   What : createBoundary 함수 추가, 생성자 선언
 // 
 //
 
 class SignUp
 {
-private:
-
-public:
-
-    bool createNewMember(string, string, string, string);
+	private:
+		SignUpUI* createBoundary(SignUp*);
+	public:
+		SignUp();
+		bool createNewMember(string, string, string, string);
 
 };
-
-
-// Class : Member
-// Description : 회원 entity class
-// Created : 2022/5/27 12:50 pm
-// Author : 홍효림
-// mail : hyolim.korea@gmail.com
-// Revisions :
-//	1. When& Who :
-//	   What :
-// 
-//
-
+class SignOutUI;
 class Member
 {
 
 private:
-    string ID;
-    string password;
-    string SSN;
-    string name;
+	string ID;
+	string password;
+	string SSN;
+	string name;
 
 public:
-    Member(string, string, string, string);
-    bool createMember(Member*);
-    string validateID();
-    string validatePW();
-    void deleteMember();
+	Member() {}
+	Member(string, string, string, string);
+	bool createMember(Member*);
+	string validateID();
+	string validatePW();
+	void deleteMember(SignOutUI*);
 
+	virtual void addPurchasedProduct(int purchased) {}
+	virtual int* getPurchasedProduct() { return 0; }
+	virtual int getPurchasedCount() { return 0; };
+
+};
+
+class Buyer : Member
+{
+private:
+	int* purchasedList; //구매한 물건 번호 list
+	int purchasedCount;//구매한 물건 수
+public:
+	Buyer(Member* member);
+	virtual void addPurchasedProduct(int purchased);
+	virtual int* getPurchasedProduct();
+	virtual int getPurchasedCount();
+
+};
+
+class Seller : Member
+{
+privat:
+	int* registationList;
+	int registationCount;
+	Seller(Member* member);
+	virtual void addRegistationProduct(int purchased);
+	virtual int* getRegistationProduct();
+	virtual int getRegistationCount();
+};
+
+// Class : Product
+// Description : Product entity class
+// Created : 2022/5/30 11:19 am
+// Author : 황성윤
+// mail : yooni0704@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
+class Product {
+private:
+	string Name;
+	string Company;
+	int Price;
+	int Registation;
+	int Purchased;
+	double Review;
+	string Seller;
+
+	//최근 검색 여부
+	bool recentSearched;
+
+public:
+	Product();
+	void SetProduct(string ProductName, string CompanyName, int ProductPrice, int RegistationQuantity, string SellerID);
+	void setName(string ProductName);
+	void setCompany(string CompanyName);
+	void setSeller(string SellerID);
+	void setRegistation(int RegistationQuantity);
+	void setPurchased(int PurchasedQuantity);
+	void setPrice(int ProductPrice);
+	void setReview(double AverageReview);
+	string getName();
+	string getCompany();
+	string getSeller();
+	int getRegistation();
+	int getPurchased();
+	int getPrice();
+	double getReview();
+	bool getRecentSearched();
+	void setRecentSearched();
+
+	void modifyProductQuantity();
+	string getProductDetail();
+	void modifyProductReview(int reviewPoint);
+	~Product();
 };
 
 // Class : LoginUI
@@ -91,19 +156,20 @@ public:
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//	1. When& Who : 2022/06/01 3:05 pm by 홍효림
+//	   What : control atrribute 추가, 생성자 선언
 // 
 //
 class Login;
 class LoginUI
 {
 private:
-
+	Login* control;
 public:
-    void enterIDPW(Login*);
-    //void startInterface();
-    //void sendSignUpmsg();
+	LoginUI(Login*);
+	void enterIDPW(Login*);
+	//void startInterface();
+	//void sendSignUpmsg();
 };
 
 
@@ -113,164 +179,229 @@ public:
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//	1. When& Who : 2022/06/01 3:05 pm by 홍효림
+//	   What : createBoundary 함수 추가, 생성자 선언
 // 
 //
 
 class Login
 {
 private:
-
+	LoginUI* createBoundary(Login*);
 public:
-
-    bool validateID(string, string);
+	Login();
+	bool validateID(string, string);
 
 };
 
-class Registation
+// Class : SignOutUI
+// Description : 회원탈퇴 boundary 클래스
+// Created : 2022/6/1 12:50 pm
+// Author : 홍효림
+// mail : hyolim.korea@gmail.com
+// Revisions :
+//	1. When& Who : 
+//	   What : 
+// 
+//
+
+class SignOut;
+class SignOutUI
 {
+private:
+	SignOut* control;
 public:
-    void setProduct(string, string, int, int, string);
+	SignOutUI(SignOut*);
+	void sendSignOutMsg(string);
 };
 
-class RegistationUI
-{
-public:
-    void enterProduct(Registation*);
-};
-
-class CheckSale
-{
-public:
-    string searchCheckSale(int);
-};
-
-class CheckSaleUI
-{
-public:
-    void printCheckSale(CheckSale*);
-};
-
-class Soldout
-{
-public:
-    string searchSoldout(int);
-};
-
-class SoldoutUI
-{
-public:
-    void printSoldout(Soldout*);
-};
-
-class SaleStatistic
-{
-public:
-    string searchSaleStatistic(int);
-};
-
-class SaleStatisticUI
-{
-public:
-    void printSaleStatistic(SaleStatistic*);
-};
-
-// Class : Product
-// Description : Product entity class
-// Created : 2022/5/30 11:19 am
-// Author : 황성윤
-// mail : yooni0704@gmail.com
+// Class : SignOut
+// Description : 회원탈퇴 control 클래스
+// Created : 2022/6/1 12:50 pm
+// Author : 홍효림
+// mail : hyolim.korea@gmail.com
 // Revisions :
 //	1. When& Who :
 //	   What :
 // 
 //
 
-
-class Product {
+class SignOut
+{
 private:
-    string Name;
-    string Company;
-    int Price;
-    int Registation;
-    int Purchased;
-    double Review;
-    string Seller;
+	SignOutUI* createBoundary(SignOut*);
+public:
+	SignOut();
+	void deleteMember(SignOutUI*);
+};
+
+// Class : LogOutUI
+// Description : 로그아웃 boundary 클래스
+// Created : 2022/6/1 2:28 pm
+// Author : 홍효림
+// mail : hyolim.korea@gmail.com
+// Revisions :
+//	1. When& Who :
+//	   What :
+// 
+//
+
+class LogOut;
+class LogOutUI
+{
+private:
+	LogOut* control;
+public:
+	LogOutUI(LogOut*);
+	void sendLogOutMsg(string);
+};
+
+// Class : LogOut
+// Description : 로그아웃 control 클래스
+// Created : 2022/6/1 2:30 pm
+// Author : 홍효림
+// mail : hyolim.korea@gmail.com
+// Revisions :
+//	1. When& Who :
+//	   What :
+// 
+//
+
+class LogOut
+{
+private:
+	LogOutUI* createBoundary(LogOut*);
+public:
+	LogOut();
+	void logOut(LogOutUI*);
+};
+class Registation;
+class RegistationUI
+{
+public:
+	void enterProduct(Registation*);
+};
+
+class CheckSale;
+class CheckSaleUI
+{
+public:
+	void printCheckSale(CheckSale*);
+};
+
+class Soldout;
+class SoldoutUI
+{
+public:
+	void printSoldout(Soldout*);
+};
+
+class SaleStatistic;
+class SaleStatisticUI
+{
+public:
+	void printSaleStatistic(SaleStatistic*);
+};
+
+class Search;
+class SearchUI {
+private:
+	string searchKeyword;
 
 public:
-    Product() {}
-
-    void SetProduct(string ProductName, string CompanyName, int ProductPrice, int RegistationQuantity, string SellerID)
-    {
-        Name = ProductName;
-        Company = CompanyName;
-        Price = ProductPrice;
-        Registation = RegistationQuantity;
-        Purchased = 0;
-        Review = 0;
-        Seller = SellerID;
-    }
-    void setName(string ProductName)
-    {
-        Name = ProductName;
-    }
-    void setCompany(string CompanyName)
-    {
-        Company = CompanyName;
-    }
-    void setSeller(string SellerID)
-    {
-        Seller = SellerID;
-    }
-    void setRegistation(int RegistationQuantity)
-    {
-        Registation = RegistationQuantity;
-    }
-    void setPurchased(int PurchasedQuantity)
-    {
-        Purchased = PurchasedQuantity;
-    }
-    void setPrice(int ProductPrice)
-    {
-        Price = ProductPrice;
-    }
-    void setReview(double AverageReview)
-    {
-        Review = AverageReview;
-    }
-    string getName()
-    {
-        return Name;
-    }
-    string getCompany()
-    {
-        return Company;
-    }
-    string getSeller()
-    {
-        return Seller;
-    }
-    int getRegistation()
-    {
-        return Registation;
-    }
-    int getPurchased()
-    {
-        return Purchased;
-    }
-    int getPrice()
-    {
-        return Price;
-    }
-    double getReview()
-    {
-        return Review;
-    }
-
-
-    ~Product() {}
+	SearchUI();
+	void enterProductName(Search*);
+	void showProduct(string result);//control -> boundary 결과 
+	~SearchUI();
 };
+
+class Purchase;
+class PurchaseUI {
+private:
+public:
+	PurchaseUI();
+	void clickPurchase(Purchase*);
+	~PurchaseUI();
+};
+
+class PurchasedList;
+class PurchasedListUI {
+public:
+	PurchasedListUI();
+	void searchPurchasedList(PurchasedList*);
+};
+
+class Review;
+class ReviewUI {
+private:
+	string reviewProduct;
+	int reviewPoint;
+public:
+	ReviewUI() {};
+	void selectProduct(Review*);
+};
+
+class Registation
+{
+public:
+	void setProduct(string, string, int, int, string);
+};
+
+
+class CheckSale
+{
+public:
+	string searchCheckSale(int);
+};
+
+
+class Soldout
+{
+public:
+	string searchSoldout(int);
+};
+
+
+class SaleStatistic
+{
+public:
+	string searchSaleStatistic(int);
+};
+
+class Search {
+private:
+
+public:
+	Search();
+	string showProduct(string searchKeyword);
+	~Search();
+};
+
+class Purchase {
+private:
+	string recentSearchWord;
+	string result;
+
+public:
+	Purchase();
+	void modifyProductQuantity();
+	void addPurchaseProduct();
+	string showPurchaseFinish();
+};
+
+class PurchasedList {
+public:
+	PurchasedList();
+	string getPurchasedProduct();
+	string listPurchasedProduct(int purchased);
+};
+
+class Review {
+public:
+	Review() {};
+	string selectProduct(string reviewProduct, int reviewPoint);
+};
+
 
 
 
