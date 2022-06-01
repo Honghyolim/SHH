@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
@@ -311,7 +310,7 @@ public:
 class CheckSale
 {
 public:
-	string searchCheckSale(int);
+	string searchCheckSale();
 };
 
 // Class : Soldout
@@ -325,7 +324,7 @@ public:
 class Soldout
 {
 public:
-	string searchSoldout(int);
+	string searchSoldout();
 };
 
 // Class : SaleStatistic
@@ -340,7 +339,7 @@ public:
 class SaleStatistic
 {
 public:
-	string searchSaleStatistic(int);
+	string searchSaleStatistic();
 };
 
 // Class : Registation
