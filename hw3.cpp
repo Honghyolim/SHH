@@ -1,24 +1,23 @@
-
-#include "pch.h"
-#include <iostream>
 #include "hw3.h"
-#include <stdio.h>
-#include <string>
-#include <iostream>
+
 
 using namespace std;
+
+
+//등록된 상품의 숫자를 저장하는 전역변수
+int productnumber = 0;
+// Product 저장하는 리스트 전역변수
+Product product[100];
+Buyer* now;
+int MemberSeq;
 
 // Member 저장하는 리스트 전역변수
 Member* memberList[100];
 int memberCnt = 0;
 //현재 로그인한 멤버의 ID를 저장하는 전역변수
 string MemberID = "";
-//Product 저장하는 리스트 전역변수
-Product product[100];
-//등록된 상품의 숫자를 저장하는 전역변수
-int productnumber = 0;
-
-
+//현재 로그인한 멤버의 포인터를 저장하는 전역변수
+Member* currentMember;
 //파일 입출력 객체 선언
 ifstream fin("input.txt");
 ofstream fout("output.txt");
@@ -44,11 +43,10 @@ void SignUpUI::enterMemberInfo(SignUp* control)
 
     if (flag == true)
     {
-        fout << name << " " << SSN << " " << ID << " " << password << endl << endl;
+        fout << "> " << name << " " << SSN << " " << ID << " " << password << endl << endl;
     }
 
 }
-
 
 //Function : bool createNewMember(string ID, string password, string SSN, string name)
 //Description: 새로운 멤버를 생성하고 createMember함수에 정보를 전달하는 함수
@@ -69,8 +67,6 @@ bool SignUp::createNewMember(string ID, string password, string SSN, string name
 
 //Function : Member(string ID, string password, string SSN, string name)
 //Description: Member 클래스 생성자
-//
-//
 //Parameters : ID - 가입시 입력한 id, password - 가입시 입력한 비번, SSN - 가입시 입력한 주민번호, name - 가입시 입력한 이름
 //Return Value : void
 //Created : 2022/05/27 3:14 pm 
@@ -112,17 +108,15 @@ bool Member::createMember(Member* nMember)
 //Return Value : void
 //Created : 2022/05/27 12:28 am 
 //author : Hong Hyolim
-//Revisions :
+//Revisions : 
+// 1. When& Who : 2022/06/01 3:16 pm by 홍효림
+//	   What : boundary 생성하는것을 control 생성자 안에 넣었음
 //
-
 
 void join()
 {
     // control class 생성
     SignUp* control = new SignUp;
-    // boundary class 생성 
-    SignUpUI* boundary = new SignUpUI;
-    boundary->enterMemberInfo(control);
 
 }
 
@@ -134,17 +128,265 @@ void join()
 //Return Value : void
 //Created : 2022/05/27 5:46 pm 
 //author : Hong Hyolim
-//Revisions :
+//Revisions : 
+// 1. When& Who : 2022/06/01 3:10 pm by 홍효림
+//	   What : boundary 생성하는것을 control 생성자 안에 넣었음
 //
 
 void login()
 {
     //control class 생성
     Login* control = new Login;
-    //boundary class 생성
-    LoginUI* boundary = new LoginUI;
-    boundary->enterIDPW(control);
+}
 
+//Function : void withdraw()
+//Description: 회원탈퇴를 진행하는 함수
+//
+//
+//Parameters : void
+//Return Value : void
+//Created : 2022/06/1 12:12 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+void withdraw()
+{
+    //control class 생성
+    SignOut* control = new SignOut;
+}
+
+//Function : void logout()
+//Description: 로그아웃을 진행하는 함수
+//
+//
+//Parameters : void
+//Return Value : void
+//Created : 2022/06/1 2:00 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+void logout()
+{
+    //control class 생성
+    LogOut* control = new LogOut;
+}
+
+//Function : void registation()
+//Description: 상품등록을 진행하는 함수
+//Parameters : void
+//Return Value : void
+//Created : 2022/05/30 15:56 pm 
+//author : 황성윤
+//Revisions :
+//
+void registration()
+{
+    //control class 생성
+    Registation* control = new Registation;
+    //boundary class 생성
+    RegistationUI* boundary = new RegistationUI;
+    boundary->enterProduct(control);
+}
+
+
+//
+//Function : void checksale()
+//Description: 상품 등록 조회를 진행하는 함수
+//Parameters : void
+//Return Value : void
+//Created : 2022/05/30 16:01 pm 
+//author : 황성윤
+//Revisions :
+//
+void checksale()
+{
+    //control class 생성
+    CheckSale* control = new CheckSale;
+    //boundary class 생성
+    CheckSaleUI* boundary = new CheckSaleUI;
+    boundary->printCheckSale(control);
+}
+
+
+//Function : void soldout()
+//Description: 판매 완료 상품 조회를 진행하는 함수
+//Parameters : void
+//Return Value : void
+//Created : 2022/05/30 16:06 pm 
+//author : 황성윤
+//Revisions :
+//
+void soldout()
+{
+    //control class 생성
+    Soldout* control = new Soldout;
+    //boundary class 생성
+    SoldoutUI* boundary = new SoldoutUI;
+    boundary->printSoldout(control);
+}
+
+
+//Function : void salestatistic()
+//Description: 판매 통계 조회를 진행하는 함수
+//Parameters : void
+//Return Value : void
+//Created : 2022/05/30 16:07 pm 
+//author : 황성윤
+//Revisions :
+//
+void salestatistic()
+{
+    //control class 생성
+    SaleStatistic* control = new SaleStatistic;
+    //boundary class 생성
+    SaleStatisticUI* boundary = new SaleStatisticUI;
+    boundary->printSaleStatistic(control);
+}
+
+
+//4 1 상품검색
+void searchProduct() {
+    Search* searchControl = new Search;//control 생성
+    SearchUI* boundary = new SearchUI; //boundary class 생성
+    boundary->enterProductName(searchControl);
+}
+
+//4 2 최근 검색한 물건 구매
+void purchase() {
+    Purchase* purchaseControl = new Purchase;//control 생성
+    PurchaseUI* boundary = new PurchaseUI;//boundary class 생성
+    boundary->clickPurchase(purchaseControl);
+}
+
+void purchasedList() {
+    PurchasedList* control = new PurchasedList;//control 생성
+    PurchasedListUI* boundary = new PurchasedListUI;//boundary class 생성
+    boundary->searchPurchasedList(control);
+}
+
+void review() {
+    Review* control = new Review;//control 생성
+    ReviewUI* boundary = new ReviewUI;//boundary class 생성
+    boundary->selectProduct(control);
+}
+
+//Function : SignUpUI(SignUp*control)
+//Description: 바운더리 클래스 생성자
+//
+//
+//Parameters : Login* control - control클래스의 래퍼랜스
+//Return Value : void
+//Created : 2022/06/1 3:22 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+SignUpUI::SignUpUI(SignUp* control)
+{
+    this->control = control;
+    this->enterMemberInfo(control);
+}
+
+//Function : SignUpUI* createBoundary(SignUp* control);
+//Description: 바운더리 클래스를 생성하고 래퍼랜스를 서로 교환하는 함수
+//
+//
+//Parameters : Login*control - control 클래스의 래퍼랜스
+//Return Value : 바운더리 클래스 포인터 
+//Created : 2022/06/1 3:25 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+SignUpUI* SignUp::createBoundary(SignUp* control)
+{
+    SignUpUI* boundary = new SignUpUI(control);
+    return boundary;
+}
+
+//Function : SignUp()
+//Description: 컨트롤 클래스 생성자, 바운더리 클래스 생성자를 부름
+//
+//
+//Parameters : 
+//Return Value : void
+//Created : 2022/06/1 3:24 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+SignUp::SignUp()
+{
+    SignUpUI* boundary = this->createBoundary(this);
+}
+
+//Function : SignOut()
+//Description: 회원탈퇴 control 클래스 생성자
+//
+//
+//Parameters : void
+//Return Value : void
+//Created : 2022/06/1 1:30 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+SignOut::SignOut()
+{
+    //boundary class 생성
+    SignOutUI* boundary = this->createBoundary(this);
+}
+
+//Function : LoginUI* createBoundary(Login* control);
+//Description: 바운더리 클래스를 생성하고 래퍼랜스를 서로 교환하는 함수
+//
+//
+//Parameters : Login*control - control 클래스의 래퍼랜스
+//Return Value : 바운더리 클래스 포인터
+//Created : 2022/06/1 3:05 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+LoginUI* Login::createBoundary(Login* control)
+{
+    LoginUI* boundary = new LoginUI(control);
+    return boundary;
+}
+
+//Function : LoginUI(Login* control);
+//Description: 바운더리 클래스 생성자
+//
+//
+//Parameters : Login* control - control클래스의 래퍼랜스
+//Return Value : void
+//Created : 2022/06/1 3:08 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+LoginUI::LoginUI(Login* control)
+{
+    this->control = control;
+    this->enterIDPW(control);
+}
+
+//Function : Login();
+//Description: 컨트롤 클래스 생성자
+//
+//
+//Parameters : 
+//Return Value : void
+//Created : 2022/06/1 3:08 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+Login::Login()
+{
+    LoginUI* boundary = this->createBoundary(this);
 }
 
 //Function : void enterIDPW(Login* control)
@@ -169,9 +411,8 @@ void LoginUI::enterIDPW(Login* control)
 
     if (flag == true)
     {
-        fout << ID << " " << password << endl << endl;
+        fout << "> " << ID << " " << password << endl << endl;
         MemberID = ID;
-
     }
     else
     {
@@ -190,6 +431,17 @@ void LoginUI::enterIDPW(Login* control)
 //Revisions :
 //
 
+
+//Function : bool validateID(string ID, string password)
+//Description: ID와 PW가 유효한지 확인
+//
+//
+//Parameters : void
+//Return Value : void
+//Created : 2022/05/27 5:51 pm 
+//author : Hong Hyolim
+//Revisions :
+//
 bool Login::validateID(string ID, string password)
 {
     string password2;
@@ -206,6 +458,7 @@ bool Login::validateID(string ID, string password)
         //fout << password2;
         if (ID.compare(ID2) == 0 && password.compare(password2) == 0)
         {
+            MemberSeq = i;
             return true;
         }
     }
@@ -240,23 +493,182 @@ string Member::validateID()
     return this->ID;
 }
 
-//Function : void registation()
-//Description: 상품등록을 진행하는 함수
-//Parameters : void
-//Return Value : void
-//Created : 2022/05/30 15:56 pm 
-//author : 황성윤
+//Function : signOutUI* createBoundary(signOut* control);
+//Description: 바운더리 클래스를 생성하고 래퍼랜스를 서로 교환하는 함수
+//
+//
+//Parameters : signOut* control - 바운더리 클래스에 control클래스의 래퍼랜스 전달
+//Return Value : 바운더리 클래스의 래퍼랜스
+//Created : 2022/06/1 1:00 pm 
+//author : Hong Hyolim
 //Revisions :
 //
 
-void registation()
+SignOutUI* SignOut::createBoundary(SignOut* control)
 {
-    //control class 생성
-    Registation* control = new Registation;
-    //boundary class 생성
-    RegistationUI* boundary = new RegistationUI;
-    boundary->enterProduct(control);
+    SignOutUI* boundary = new SignOutUI(control);
+    return boundary;
 }
+
+//Function : signOutUI(signOut*);
+//Description: 바운더리 클래스 생성자
+//
+//
+//Parameters : signOut* control - control 클래스의 래퍼랜스
+//Return Value : 
+//Created : 2022/06/1 1:04 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+SignOutUI::SignOutUI(SignOut* control)
+{
+    this->control = control;
+    control->deleteMember(this);
+}
+
+//Function : void deleteMember(signOutUI* boundary)
+//Description: member class의 deltemember를 부르기위한 control 클래스의 함수
+//
+//
+//Parameters : signOutUI* boundary - 결과 출력을 위한 boundary 클래스의 래퍼랜스
+//Return Value : void
+//Created : 2022/06/1 1:08 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+void SignOut::deleteMember(SignOutUI* boundary)
+{
+    currentMember->deleteMember(boundary);
+}
+
+//Function : void sendSignOutMsg(string ID);
+//Description: 회원탈퇴 완료시 결과 출력을 위한 함수
+//
+//Parameters : string ID - 결과 출력시 필요한 정보를 인자로 받는다
+//Return Value : void
+//Created : 2022/06/1 1:14 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+void SignOutUI::sendSignOutMsg(string ID)
+{
+    fout << "1.2 회원탈퇴" << endl;
+    fout << "> " << ID << endl << endl;
+}
+
+//Function : void deleteMember(signOutUI* boundary);
+//Description: 회원리스트에서 삭제하고 결과출력함수를 부르는 함수
+//
+//Parameters : signOutUI* boundary - 결과 출력함수를 부르기 위한 boundary class 래퍼랜스를 인자로 받는다.
+//Return Value : void
+//Created : 2022/06/1 1:20 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+void Member::deleteMember(SignOutUI* boundary)
+{
+    //boundary 클래스의 reference를 이용해 함수를 불러서 메세지 출력
+    for (int i = 0; i < memberCnt; i++)
+    {
+        if (currentMember->ID == memberList[i]->ID)
+        {
+            memberList[i] = NULL;
+            string ID = MemberID;
+            boundary->sendSignOutMsg(ID);
+            //로그아웃
+            MemberID = "";
+        }
+    }
+}
+
+//Function : LogOutUI(LogOut*)
+//Description: 바운더리 클래스 생성자
+//
+//
+//Parameters : LogOut*control - control 클래스의 래퍼랜스
+//Return Value : void
+//Created : 2022/06/1 2:30 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+LogOutUI::LogOutUI(LogOut* control)
+{
+    this->control = control;
+    control->logOut(this);
+}
+
+//Function : LogOutUI* createBoundary(LogOut*contro;);
+//Description: 바운더리 클래스를 생성하고 래퍼랜스를 서로 교환하는 함수
+//
+//
+//Parameters : LogOut*control - control 클래스의 래퍼랜스
+//Return Value : 바운더리 클래스 포인터
+//Created : 2022/06/1 2:32 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+LogOutUI* LogOut::createBoundary(LogOut* control)
+{
+    LogOutUI* boundary = new LogOutUI(control);
+    return boundary;
+}
+
+//Function :LogOut()
+//Description: 컨트롤 클래스 생성자
+//
+//
+//Parameters : LogOut*control - control 클래스의 래퍼랜스
+//Return Value : void
+//Created : 2022/06/1 2:33 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+LogOut::LogOut()
+{
+    //boundary class 생성
+    LogOutUI* boundary = this->createBoundary(this);
+}
+
+//Function : void sendLogOutMsg(string ID);
+//Description: 로그아웃 완료시 결과 출력을 위한 함수
+//
+//Parameters : string ID - 결과 출력시 필요한 정보를 인자로 받는다
+//Return Value : void
+//Created : 2022/06/1 2:40 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+void LogOutUI::sendLogOutMsg(string ID)
+{
+    fout << "2.2 로그아웃" << endl;
+    fout << "> " << ID << endl << endl;
+}
+
+//Function : void logOut(LogOutUI*boundary);
+//Description: 로그아웃 하는 함수
+//
+//Parameters : signOutUI* boundary - 결과 출력함수를 부르기 위한 boundary class 래퍼랜스를 인자로 받는다.
+//Return Value : void
+//Created : 2022/06/1 2:44 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+void LogOut::logOut(LogOutUI* boundary)
+{
+    string ID = MemberID;
+    MemberID = "";
+    boundary->sendLogOutMsg(ID);
+}
+
 //
 //Function : void RegistationUI::enterProduct(Registation* control)
 //Description: 상품 정보를 입력받는 함수
@@ -276,8 +688,120 @@ void RegistationUI::enterProduct(Registation* control) {
     control->setProduct(ProductName, CompanyName, ProductPrice, RegistationQuantity, MemberID);
     productnumber++;
     fout << "3.1 판매 의류 등록 " << endl;
-    fout << "> " ProductName <<" " << CompanyName<<" "<< ProductPrice <<" "<< RegistationQuantity << endl;
+    fout << "> " ProductName << " " << CompanyName << " " << ProductPrice << " " << RegistationQuantity << endl;
+}
 
+
+//
+//Function : void CheckSaleUI::printCheckSale(CheckSale* control)
+//Description: 판매중인 상품을 출력하는 함수
+//Parameters : CheckSale*
+//Return Value : void
+//Created : 2022/05/30 16:01 pm 
+//author : 황성윤
+//Revisions :
+//
+void CheckSaleUI::printCheckSale(CheckSale* control)
+{
+    int i = 0;
+    fout << "3.2 등록 상품 조회" << endl;
+    int registationCount = now->getRegistationCount(); //물건의 갯수
+    while (registationCount > i) {
+        if ("" != control->searchCheckSale(i)) {
+            fout << "> " << control->searchCheckSale(i)<< <<endl;
+        }
+        i++;
+    }
+}
+
+
+//
+//Function : void SoldoutUI::printSoldout(Soldout* control)
+//Description: 판매완료인 상품을 출력하는 함수
+//Parameters : Soldout*
+//Return Value : void
+//Created : 2022/05/30 16:07 pm 
+//author : 황성윤
+//Revisions :
+//
+void SoldoutUI::printSoldout(Soldout* control)
+{
+    int i = 0;
+    int registationCount = now->getRegistationCount(); //물건의 갯수
+    fout << "3.3 판매 완료 상품 조회" << endl;
+    while (registationCount > i) {
+        if ("" != control->searchSoldout(i)) {
+            fout << "> " << control->searchSoldout(i) << << endl;
+        }
+        i++;
+    }
+}
+
+
+//Function : void SaleStatisticUI::printSaleStatistic(SaleStatistic* control)
+//Description: 사용자가 판매한 상품인지 확인하는 함수
+//Parameters : SaleStatistic*
+//Return Value : void
+//Created : 2022/05/30 16:08 pm 
+//author : 황성윤
+//Revisions :
+//
+void SaleStatisticUI::printSaleStatistic(SaleStatistic* control)
+{
+    int i = 0;
+    int registationCount = now->getRegistationCount(); //물건의 갯수
+    fout << "5.1 판매 상품 통계" << endl;
+    while (registationCount > i) {
+        if ("" != control->searchSaleStatistic(i)) {
+            fout << "> " << control->searchSaleStatistic(i) << endl;
+        }
+        i++;
+    }
+}
+
+/*
+함수 이름 : SearchUI 생성자
+기능 : 검색할 상품명
+*/
+SearchUI::SearchUI() {}
+
+void SearchUI::enterProductName(Search* control) {
+    fin >> searchKeyword;
+    string result = control->showProduct(searchKeyword);
+    fout << "4.1. 상품 정보 검색" << endl;
+    fout << "> " << result << endl;
+}
+
+
+SearchUI::~SearchUI() {
+}
+
+PurchaseUI::PurchaseUI() {
+};
+
+void PurchaseUI::clickPurchase(Purchase* control) {
+    string purchaseResult = control->showPurchaseFinish();
+    fout << "4.2. 상품 구매" << endl;
+    fout << "> " << purchaseResult << endl;
+}
+
+PurchaseUI::~PurchaseUI() {
+}
+
+PurchasedListUI::PurchasedListUI() {}
+
+void PurchasedListUI::searchPurchasedList(PurchasedList* control) {
+    string purchasedList = control->getPurchasedProduct();
+
+    fout << "4.3. 상품 구매 내역 조회" << endl;
+    fout << "> " << purchasedList << endl;
+}
+
+void ReviewUI::selectProduct(Review* control) {
+    fin >> reviewProduct >> reviewPoint;
+    string result = control->selectProduct(reviewProduct, reviewPoint);
+    fout << "4.4. 상품 구매만족도 평가" << endl;
+    fout << "> " << result << endl;
 }
 
 //Function : void Registation::setProduct(string ProductName, string CompanyName, int ProductPrice, int RegistationQuantity, string SellerID)
@@ -297,26 +821,12 @@ void Registation::setProduct(string ProductName, string CompanyName, int Product
     product[productnumber].setPurchased(0);
     product[productnumber].setReview(0);
     product[productnumber].setSeller(SellerID);
+    now = new Seller(memberList[MemberSeq]);
+    now->addRegistationProduct(i);
 
 }
-//
-//Function : void checksale()
-//Description: 상품 등록 조회를 진행하는 함수
-//Parameters : void
-//Return Value : void
-//Created : 2022/05/30 16:01 pm 
-//author : 황성윤
-//Revisions :
-//
 
-void checksale()
-{
-    //control class 생성
-    CheckSale* control = new CheckSale;
-    //boundary class 생성
-    CheckSaleUI* boundary = new CheckSaleUI;
-    boundary->printCheckSale(control);
-}
+
 //
 //Function : bool CheckSale::searchCheckSale(int i)
 //Description: 판매중인 상품인지 확인 하는 함수
@@ -328,57 +838,15 @@ void checksale()
 //
 string CheckSale::searchCheckSale(int i)
 {
-    string result =""
-    if (product[i].getSeller() == MemberID) {
-        if (product[i].getRegistation() > product[i].getPurchased())
-        {
-            result = product[i].getName() + " " + product[i].getCompany() + " " << to_string(product[i].getPrice()) << " " << to_string(product[i].getRegistation());
-            return result;
-        }
-    }
-    else
-    {
-        return result;
-    }
-}
-//
-//Function : void CheckSaleUI::printCheckSale(CheckSale* control)
-//Description: 판매중인 상품을 출력하는 함수
-//Parameters : CheckSale*
-//Return Value : void
-//Created : 2022/05/30 16:01 pm 
-//author : 황성윤
-//Revisions :
-//
-void CheckSaleUI::printCheckSale(CheckSale* control)
-{
-    int i = 0;
-    fout << "3.2 등록 상품 조회" << endl;
-    while (productnumber > i) {
-        if ("" != control->searchCheckSale(i)) {
-            fout <<"> "<< control->searchCheckSale(i)<< <<endl;
-        }
-        i++;
-    }
+    int* list = now->getRegistationProduct();
+    int registationCount = now->getRegistationCount(); //물건의 갯수
+    string result = ""
+        result = product[list[i]].getName() + " " + product[list[i]].getCompany() + " " << to_string(product[list[i]].getPrice()) << " " << to_string(product[list[i]].getRegistation());
+    return result;
+
 }
 
 
-//Function : void soldout()
-//Description: 판매 완료 상품 조회를 진행하는 함수
-//Parameters : void
-//Return Value : void
-//Created : 2022/05/30 16:06 pm 
-//author : 황성윤
-//Revisions :
-//
-void soldout()
-{
-    //control class 생성
-    Soldout* control = new Soldout;
-    //boundary class 생성
-    SoldoutUI* boundary = new SoldoutUI;
-    boundary->printSoldout(control);
-}
 //
 //Function : bool Soldout::searchSoldout(int i)
 //Description: 판매완료인 상품인지 확인 하는 함수
@@ -390,58 +858,15 @@ void soldout()
 //
 string Soldout::searchSoldout(int i)
 {
-    string result="";
-    if (product[i].getSeller() == MemberID) {
-        if (product[i].getRegistation() == product[i].getPurchased())
-        {
-            result = result = product[i].getName() + " " + product[i].getCompany() + " " << to_string(product[i].getPrice()) << " " << to_string(product[i].getPurchased())<<" "<<to_string(product[i].getReview());
-            return result;
-        }
-    }
-    else
-    {
-        return result;
-    }
-}
-//
-//Function : void SoldoutUI::printSoldout(Soldout* control)
-//Description: 판매완료인 상품을 출력하는 함수
-//Parameters : Soldout*
-//Return Value : void
-//Created : 2022/05/30 16:07 pm 
-//author : 황성윤
-//Revisions :
-//
-void SoldoutUI::printSoldout(Soldout* control)
-{
-    int i = 0;
-    fout << "3.3 판매 완료 상품 조회" << endl;
-    while (productnumber > i) {
-        if ("" != control->searchSoldout(i)) {
-            fout<<"> "<< control->searchSoldout(i) << << endl;
-        }
-        i++;
-    }
+    int* list = now->getRegistationProduct();//buyer가 가진 구매목록 가져오기 (물건 번호로 저장)  
+    int registationCount = now->getRegistationCount(); //물건의 갯수 
+    string result = "";
+    result = result = product[list[i]].getName() + " " + product[list[i]].getCompany() + " " << to_string(product[list[i]].getPrice()) << " " << to_string(product[list[i]].getPurchased()) << " " << to_string(product[i].getReview());
+    return result;
+
 }
 
 
-//Function : void salestatistic()
-//Description: 판매 통계 조회를 진행하는 함수
-//Parameters : void
-//Return Value : void
-//Created : 2022/05/30 16:07 pm 
-//author : 황성윤
-//Revisions :
-//
-
-void salestatistic()
-{
-    //control class 생성
-    SaleStatistic* control = new SaleStatistic;
-    //boundary class 생성
-    SaleStatisticUI* boundary = new SaleStatisticUI;
-    boundary->printSaleStatistic(control);
-}
 //Function : bool SaleStatistic::searchSaleStatistic(int i)
 //Description: 사용자가 판매한 상품인지 확인하는 함수
 //Parameters : int
@@ -453,37 +878,222 @@ void salestatistic()
 
 string SaleStatistic::searchSaleStatistic(int i)
 {
+    int* list = now->getRegistationProduct();//buyer가 가진 구매목록 가져오기 (물건 번호로 저장)  
+    int registationCount = now->getRegistationCount(); //물건의 갯수 
     string result = "";
-    if (product[i].getSeller() == MemberID) {
-        result = product[i].getName() << " " << to_string(product[i].getPrice() * product[i].getPurchased()) << " " << to_string(product[i].getReview());
-        return result;
-    }
-    else
-    {
-        return result;
-    }
+    result = product[list[i]].getName() << " " << to_string(product[list[i]].getPrice() * product[list[i]].getPurchased()) << " " << to_string(product[list[i]].getReview());
+    return result;
+
 }
-//Function : void SaleStatisticUI::printSaleStatistic(SaleStatistic* control)
-//Description: 사용자가 판매한 상품인지 확인하는 함수
-//Parameters : SaleStatistic*
-//Return Value : void
-//Created : 2022/05/30 16:08 pm 
-//author : 황성윤
-//Revisions :
-//
-void SaleStatisticUI::printSaleStatistic(SaleStatistic* control)
-{
-    int i = 0;
-    fout << "5.1 판매 상품 통계" << endl;
-    while (productnumber > i) {
-        if (""!=control->searchSaleStatistic(i)) {
-            fout <<"> "<< control->searchSaleStatistic(i)<<endl;
+
+Search::Search() {}
+
+string Search::showProduct(string searchKeyword) {
+    for (int i = 0; i < productnumber; i++) {
+        if (product[i].getName() == searchKeyword) {
+            product[i].setRecentSearched();//false ->true
+            return product[i].getProductDetail();
         }
-        i++;
     }
+    return "상품 없음";
+}
+
+Search::~Search() {
 }
 
 
+Purchase::Purchase() {
+}
+
+string Purchase::showPurchaseFinish() {
+    for (int i = 0; i < productnumber; i++) {
+        if (product[i].getRecentSearched()) {
+            product[i].modifyProductQuantity();
+            now = new Buyer(memberList[MemberSeq]);
+            now->addPurchasedProduct(i);
+            result = product[i].getSeller() + " " + product[i].getName();
+            return result;
+        }
+    }
+    return "최근 검색한 상품이 없음";
+}
+
+PurchasedList::PurchasedList() {}
+
+string PurchasedList::getPurchasedProduct() {
+
+    int* list = now->getPurchasedProduct();//buyer가 가진 구매목록 가져오기 (물건 번호로 저장)  
+    int purchasedCount = now->getPurchasedCount(); //물건의 갯수 
+    string result = "";
+    for (int i = 0; i < purchasedCount; i++) {
+        result += listPurchasedProduct(list[i]);
+    }
+    return result;
+}
+
+string PurchasedList::listPurchasedProduct(int productNum) {
+    return product[productNum].getProductDetail();
+}
+
+string Review::selectProduct(string reviewProduct, int reviewPoint) {
+    string result;
+    for (int i = 0; i < productnumber; i++) {
+        if (product[i].getName() == reviewProduct) {
+            product[i].modifyProductReview(reviewPoint);
+            result = product[i].getSeller() + " " + product[i].getName() + " " + to_string(product[i].getReview());
+        }
+    }
+
+    return result;
+}
+
+// Class : Product
+// Description : Product entity class
+// Created : 2022/5/30 11:19 am
+// Author : 황성윤
+// mail : yooni0704@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
+
+Product::Product() {
+}
+
+void Product::SetProduct(string ProductName, string CompanyName, int ProductPrice, int RegistationQuantity, string SellerID)
+{
+    Name = ProductName;
+    Company = CompanyName;
+    Price = ProductPrice;
+    Registation = RegistationQuantity;
+    Purchased = 0;
+    Review = 0;
+    Seller = SellerID;
+    recentSearched = false; //S.J.T
+}
+
+void Product::setName(string ProductName)
+{
+    Name = ProductName;
+}
+void Product::setCompany(string CompanyName)
+{
+    Company = CompanyName;
+}
+void Product::setSeller(string SellerID)
+{
+    Seller = SellerID;
+}
+void Product::setRegistation(int RegistationQuantity)
+{
+    Registation = RegistationQuantity;
+}
+void Product::setPurchased(int PurchasedQuantity)
+{
+    Purchased = PurchasedQuantity;
+}
+void Product::setPrice(int ProductPrice)
+{
+    Price = ProductPrice;
+}
+void Product::setReview(double AverageReview)
+{
+    Review = AverageReview;
+}
+string Product::getName()
+{
+    return Name;
+}
+string Product::getCompany()
+{
+    return Company;
+}
+string Product::getSeller()
+{
+    return Seller;
+}
+int Product::getRegistation()
+{
+    return Registation;
+}
+int Product::getPurchased()
+{
+    return Purchased;
+}
+int Product::getPrice()
+{
+    return Price;
+}
+double Product::getReview()
+{
+    return Review;
+}
+bool Product::getRecentSearched() {
+    return recentSearched;
+}
+
+void Product::setRecentSearched() {
+    this->recentSearched = !this->recentSearched;
+}
+
+/*서준택*/
+void Product::modifyProductQuantity() {
+    Purchased++;
+}
+
+/*서준택*/
+string Product::getProductDetail() {
+    return Seller + " " + Name + " " + Company + " " + to_string(Price) + " " + to_string(Registation - Purchased) + " " + to_string(Review);
+}
+
+/*서준택*/
+void Product::modifyProductReview(int reviewPoint) {
+    Review = (Review * (Purchased - 1) + reviewPoint) / Purchased;
+}
+
+Product::~Product() {}
+
+Buyer::Buyer(Member* member) {
+    purchasedList = new int[10];
+}
+
+void Buyer::addPurchasedProduct(int purchased) {
+    purchasedList[purchasedCount] = purchased;
+    purchasedCount++;
+}
+int* Buyer::getPurchasedProduct() {
+    int* purchasedIndexList = new int[purchasedCount + 1];
+    for (int i = 0; i < purchasedCount; i++) {
+        purchasedIndexList[i] = purchasedList[i];
+    }
+    return purchasedIndexList;
+}
+
+int Buyer::getPurchasedCount() {
+    return purchasedCount;
+}
+
+
+Seller::Seller(Member* member) {
+    RegistationList = new int[10];
+}
+
+void Seller::addRegistationProduct(int registation) {
+    registationList[RegistationCount] = registation;
+    registationCount++;
+}
+int* Seller::getRegistationProduct() {
+    int* registationIndexList = new int[registationCount + 1];
+    for (int i = 0; i < RegistationCount; i++) {
+        registationIndexList[i] = registationList[i];
+    }
+    return registationIndexList;
+}
+
+int Seller::getRegistationCount() {
+    return registationCount;
+}
 
 //Function : void doTask()
 //Description: 메뉴 파싱하는 함수
@@ -527,7 +1137,7 @@ void doTask()
             }
             case 2:
             {
-
+                withdraw();
                 break;
             }
             }
@@ -539,14 +1149,14 @@ void doTask()
             {
             case 1:   // "2.1. 로그인“ 메뉴 부분
             {
-                //fout << "login" << endl;
+                //cout << "login" << endl;
                 login();
 
                 break;
             }
             case 2:
             {
-
+                logout();
                 break;
             }
             }
@@ -558,7 +1168,7 @@ void doTask()
             {
             case 1: // "3.1 판매 의류 등록" 메뉴 부분
             {
-                registation();
+                registration();
                 break;
             }
             case 2: // "3.2 등록 상품 조회" 메뉴 부분
@@ -571,6 +1181,24 @@ void doTask()
                 soldout();
                 break;
             }
+            }
+            break;
+        }
+        case 4:
+        {
+            switch (menu_level_2) {
+            case 1:
+                searchProduct();
+                break;
+            case 2:
+                purchase();
+                break;
+            case 3:
+                purchasedList();
+                break;
+            case 4:
+                review();
+                break;
             }
             break;
         }
@@ -603,10 +1231,6 @@ void doTask()
         }
     }
     return;
-}
-
-int main() {
-    doTask();
 }
 
 
