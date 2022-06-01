@@ -1405,7 +1405,7 @@ void doTask()
             {
             case 1:   // "6.1. 종료“ 메뉴 부분
             {
-
+                fout << "6.1 종료" << endl;
                 // program_exit();
                 is_program_exit = 1;
                 break;;
