@@ -15,8 +15,8 @@ void doTask();
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//	1. When& Who : 2022/06/01 3:12 pm by 홍효림
+//	   What : control atrribute 추가, 생성자 선언
 // 
 //
 
@@ -24,15 +24,14 @@ class SignUp;
 class SignUpUI
 {
 private:
-
+	SignUp* control;
 public:
-    void enterMemberInfo(SignUp*);
-    //void startInterface();
-    //void sendSignUpmsg();
-
+	SignUpUI(SignUp*);
+	void enterMemberInfo(SignUp*);
+	//void startInterface();
+	//void sendSignUpmsg();
 
 };
-
 
 // Class : SignUp
 // Description : 회원가입 control class
@@ -40,21 +39,20 @@ public:
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//	1. When& Who : 2022/06/01 3:13 pm by 홍효림
+//	   What : createBoundary 함수 추가, 생성자 선언
 // 
 //
 
 class SignUp
 {
-private:
-
-public:
-
-    bool createNewMember(string, string, string, string);
+	private:
+		SignUpUI* createBoundary(SignUp*);
+	public:
+		SignUp();
+		bool createNewMember(string, string, string, string);
 
 };
-
 
 // Class : Member
 // Description : 회원 entity class
@@ -66,22 +64,22 @@ public:
 //	   What :
 // 
 //
-
+class SignOutUI;
 class Member
 {
 
-private:
-    string ID;
-    string password;
-    string SSN;
-    string name;
+	private:
+		string ID;
+		string password;
+		string SSN;
+		string name;
 
-public:
-    Member(string, string, string, string);
-    bool createMember(Member*);
-    string validateID();
-    string validatePW();
-    void deleteMember();
+	public:
+		Member(string, string, string, string);
+		bool createMember(Member*);
+		string validateID();
+		string validatePW();
+		void deleteMember(SignOutUI*);
 
 };
 
@@ -91,19 +89,20 @@ public:
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//	1. When& Who : 2022/06/01 3:05 pm by 홍효림
+//	   What : control atrribute 추가, 생성자 선언
 // 
 //
 class Login;
 class LoginUI
 {
 private:
-
+	Login* control;
 public:
-    void enterIDPW(Login*);
-    //void startInterface();
-    //void sendSignUpmsg();
+	LoginUI(Login*);
+	void enterIDPW(Login*);
+	//void startInterface();
+	//void sendSignUpmsg();
 };
 
 
@@ -113,164 +112,106 @@ public:
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//	1. When& Who : 2022/06/01 3:05 pm by 홍효림
+//	   What : createBoundary 함수 추가, 생성자 선언
 // 
 //
 
 class Login
 {
 private:
-
+	LoginUI* createBoundary(Login*);
 public:
-
-    bool validateID(string, string);
+	Login();
+	bool validateID(string, string);
 
 };
 
-class Registation
+// Class : SignOutUI
+// Description : 회원탈퇴 boundary 클래스
+// Created : 2022/6/1 12:50 pm
+// Author : 홍효림
+// mail : hyolim.korea@gmail.com
+// Revisions :
+//	1. When& Who : 
+//	   What : 
+// 
+//
+
+class SignOut;
+class SignOutUI
 {
+private:
+	SignOut* control;
 public:
-    void setProduct(string, string, int, int, string);
+	SignOutUI(SignOut*);
+	void sendSignOutMsg(string);
 };
 
-class RegistationUI
-{
-public:
-    void enterProduct(Registation*);
-};
-
-class CheckSale
-{
-public:
-    bool searchCheckSale(int);
-};
-
-class CheckSaleUI
-{
-public:
-    void printCheckSale(CheckSale*);
-};
-
-class Soldout
-{
-public:
-    bool searchSoldout(int);
-};
-
-class SoldoutUI
-{
-public:
-    void printSoldout(Soldout*);
-};
-
-class SaleStatistic
-{
-public:
-    bool searchSaleStatistic(int);
-};
-
-class SaleStatisticUI
-{
-public:
-    void printSaleStatistic(SaleStatistic*);
-};
-
-// Class : Product
-// Description : Product entity class
-// Created : 2022/5/30 11:19 am
-// Author : 황성윤
-// mail : yooni0704@gmail.com
+// Class : SignOut
+// Description : 회원탈퇴 control 클래스
+// Created : 2022/6/1 12:50 pm
+// Author : 홍효림
+// mail : hyolim.korea@gmail.com
 // Revisions :
 //	1. When& Who :
 //	   What :
 // 
 //
 
-
-class Product {
+class SignOut
+{
 private:
-    string Name;
-    string Company;
-    int Price;
-    int Registation;
-    int Purchased;
-    double Review;
-    string Seller;
-
+	SignOutUI* createBoundary(SignOut*);
 public:
-    Product() {}
-
-    void SetProduct(string ProductName, string CompanyName, int ProductPrice, int RegistationQuantity, string SellerID)
-    {
-        Name = ProductName;
-        Company = CompanyName;
-        Price = ProductPrice;
-        Registation = RegistationQuantity;
-        Purchased = 0;
-        Review = 0;
-        Seller = SellerID;
-    }
-    void setName(string ProductName)
-    {
-        Name = ProductName;
-    }
-    void setCompany(string CompanyName)
-    {
-        Company = CompanyName;
-    }
-    void setSeller(string SellerID)
-    {
-        Seller = SellerID;
-    }
-    void setRegistation(int RegistationQuantity)
-    {
-        Registation = RegistationQuantity;
-    }
-    void setPurchased(int PurchasedQuantity)
-    {
-        Purchased = PurchasedQuantity;
-    }
-    void setPrice(int ProductPrice)
-    {
-        Price = ProductPrice;
-    }
-    void setReview(double AverageReview)
-    {
-        Review = AverageReview;
-    }
-    string getName()
-    {
-        return Name;
-    }
-    string getCompany()
-    {
-        return Company;
-    }
-    string getSeller()
-    {
-        return Seller;
-    }
-    int getRegistation()
-    {
-        return Registation;
-    }
-    int getPurchased()
-    {
-        return Purchased;
-    }
-    int getPrice()
-    {
-        return Price;
-    }
-    double getReview()
-    {
-        return Review;
-    }
-
-
-    ~Product() {}
+	SignOut();
+	void deleteMember(SignOutUI*);
 };
+
+// Class : LogOutUI
+// Description : 로그아웃 boundary 클래스
+// Created : 2022/6/1 2:28 pm
+// Author : 홍효림
+// mail : hyolim.korea@gmail.com
+// Revisions :
+//	1. When& Who :
+//	   What :
+// 
+//
+
+class LogOut;
+class LogOutUI
+{
+private:
+	LogOut* control;
+public:
+	LogOutUI(LogOut*);
+	void sendLogOutMsg(string);
+};
+
+// Class : LogOut
+// Description : 로그아웃 control 클래스
+// Created : 2022/6/1 2:30 pm
+// Author : 홍효림
+// mail : hyolim.korea@gmail.com
+// Revisions :
+//	1. When& Who :
+//	   What :
+// 
+//
+
+class LogOut
+{
+private:
+	LogOutUI* createBoundary(LogOut*);
+public:
+	LogOut();
+	void logOut(LogOutUI*);
+};
+
+
+
+
 
 
 
