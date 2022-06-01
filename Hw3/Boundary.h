@@ -9,19 +9,21 @@
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//   1. When& Who :
-//      What :
+//	1. When& Who : 2022/06/01 3:12 pm by 홍효림
+//	   What : control atrribute 추가, 생성자 선언
 // 
 //
+
+class SignUp;
 class SignUpUI
 {
 private:
-
+    SignUp* control;
 public:
+    SignUpUI(SignUp*);
     void enterMemberInfo(SignUp*);
     //void startInterface();
     //void sendSignUpmsg();
-
 
 };
 
