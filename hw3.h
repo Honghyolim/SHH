@@ -71,10 +71,6 @@ public:
 	string validatePW();
 	void deleteMember(SignOutUI*);
 
-	virtual void addPurchasedProduct(int purchased) {}
-	virtual int* getPurchasedProduct() { return 0; }
-	virtual int getPurchasedCount() { return 0; };
-
 };
 
 
@@ -136,7 +132,6 @@ private:
 
 public:
 	Product();
-	void SetProduct(string ProductName, string CompanyName, int ProductPrice, int RegistationQuantity, string SellerID);
 	void setName(string ProductName);
 	void setCompany(string CompanyName);
 	void setSeller(string SellerID);
