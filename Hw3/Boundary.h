@@ -33,20 +33,63 @@ public:
 // Author : È«È¿¸²
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//   1. When& Who :
-//      What :
+//	1. When& Who : 2022/06/01 3:05 pm by È«È¿¸²
+//	   What : control atrribute Ãß°¡, »ý¼ºÀÚ ¼±¾ð
 // 
 //
+class Login;
 class LoginUI
 {
 private:
-
+    Login* control;
 public:
+    LoginUI(Login*);
     void enterIDPW(Login*);
     //void startInterface();
     //void sendSignUpmsg();
 };
 
+// Class : SignOutUI
+// Description : È¸¿øÅ»Åð boundary Å¬·¡½º
+// Created : 2022/6/1 12:50 pm
+// Author : È«È¿¸²
+// mail : hyolim.korea@gmail.com
+// Revisions :
+//	1. When& Who : 
+//	   What : 
+// 
+//
+
+class SignOut;
+class SignOutUI
+{
+private:
+    SignOut* control;
+public:
+    SignOutUI(SignOut*);
+    void sendSignOutMsg(string);
+};
+
+class LogOut;
+class LogOutUI
+{
+private:
+    LogOut* control;
+public:
+    LogOutUI(LogOut*);
+    void sendLogOutMsg(string);
+};
+
+// Class : LogOut
+// Description : ·Î±×¾Æ¿ô control Å¬·¡½º
+// Created : 2022/6/1 2:30 pm
+// Author : È«È¿¸²
+// mail : hyolim.korea@gmail.com
+// Revisions :
+//	1. When& Who :
+//	   What :
+// 
+//
 
 class RegistationUI
 {

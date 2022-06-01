@@ -7,20 +7,20 @@
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//   1. When& Who :
-//      What :
+//	1. When& Who : 2022/06/01 3:13 pm by 홍효림
+//	   What : createBoundary 함수 추가, 생성자 선언
 // 
 //
+
 class SignUp
 {
 private:
-
+	SignUpUI* createBoundary(SignUp*);
 public:
-	SignUp() {};
+	SignUp();
 	bool createNewMember(string, string, string, string);
 
 };
-
 
 // Class : Login
 // Description : 로그인 control class
@@ -28,20 +28,60 @@ public:
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//   1. When& Who :
-//      What :
+//	1. When& Who : 2022/06/01 3:05 pm by 홍효림
+//	   What : createBoundary 함수 추가, 생성자 선언
 // 
 //
+
 class Login
 {
 private:
-
+	LoginUI* createBoundary(Login*);
 public:
-
+	Login();
 	bool validateID(string, string);
 
 };
 
+// Class : SignOut
+// Description : 회원탈퇴 control 클래스
+// Created : 2022/6/1 12:50 pm
+// Author : 홍효림
+// mail : hyolim.korea@gmail.com
+// Revisions :
+//	1. When& Who :
+//	   What :
+// 
+//
+
+class SignOut
+{
+private:
+	SignOutUI* createBoundary(SignOut*);
+public:
+	SignOut();
+	void deleteMember(SignOutUI*);
+};
+
+// Class : LogOut
+// Description : 로그아웃 control 클래스
+// Created : 2022/6/1 2:30 pm
+// Author : 홍효림
+// mail : hyolim.korea@gmail.com
+// Revisions :
+//	1. When& Who :
+//	   What :
+// 
+//
+
+class LogOut
+{
+private:
+	LogOutUI* createBoundary(LogOut*);
+public:
+	LogOut();
+	void logOut(LogOutUI*);
+};
 
 class Registation
 {

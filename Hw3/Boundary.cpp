@@ -16,6 +16,40 @@ extern Member* memberList[100];
 extern ifstream fin;
 extern ofstream fout;
 
+//Function : SignUpUI(SignUp*control)
+//Description: 바운더리 클래스 생성자
+//
+//
+//Parameters : Login* control - control클래스의 래퍼랜스
+//Return Value : void
+//Created : 2022/06/1 3:22 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+SignUpUI::SignUpUI(SignUp* control)
+{
+    this->control = control;
+    this->enterMemberInfo(control);
+}
+
+//Function : SignUpUI* createBoundary(SignUp* control);
+//Description: 바운더리 클래스를 생성하고 래퍼랜스를 서로 교환하는 함수
+//
+//
+//Parameters : Login*control - control 클래스의 래퍼랜스
+//Return Value : 바운더리 클래스 포인터 
+//Created : 2022/06/1 3:25 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+SignUpUI* SignUp::createBoundary(SignUp* control)
+{
+    SignUpUI* boundary = new SignUpUI(control);
+    return boundary;
+}
+
 //Function : void enterMemberInfo(SignUp* control)
 //Description: 회원가입 정보를 입력받고, 회원가입이 완료되면 결과 출력하는 함수
 //Parameters : control - control객체 포인터
@@ -37,11 +71,27 @@ void SignUpUI::enterMemberInfo(SignUp* control)
 
     if (flag == true)
     {
-        fout << name << " " << SSN << " " << ID << " " << password << endl << endl;
+        fout << "> " << name << " " << SSN << " " << ID << " " << password << endl << endl;
     }
 
 }
 
+//Function : LoginUI(Login* control);
+//Description: 바운더리 클래스 생성자
+//
+//
+//Parameters : Login* control - control클래스의 래퍼랜스
+//Return Value : void
+//Created : 2022/06/1 3:08 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+LoginUI::LoginUI(Login* control)
+{
+    this->control = control;
+    this->enterIDPW(control);
+}
 
 //Function : void enterIDPW(Login* control)
 //Description: 로그인데이터를 입력받는 함수
@@ -73,6 +123,88 @@ void LoginUI::enterIDPW(Login* control)
     }
 }
 
+//Function : signOutUI* createBoundary(signOut* control);
+//Description: 바운더리 클래스를 생성하고 래퍼랜스를 서로 교환하는 함수
+//
+//
+//Parameters : signOut* control - 바운더리 클래스에 control클래스의 래퍼랜스 전달
+//Return Value : 바운더리 클래스의 래퍼랜스
+//Created : 2022/06/1 1:00 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+SignOutUI* SignOut::createBoundary(SignOut* control)
+{
+    SignOutUI* boundary = new SignOutUI(control);
+    return boundary;
+}
+
+//Function : signOutUI(signOut*);
+//Description: 바운더리 클래스 생성자
+//
+//
+//Parameters : signOut* control - control 클래스의 래퍼랜스
+//Return Value : 
+//Created : 2022/06/1 1:04 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+SignOutUI::SignOutUI(SignOut* control)
+{
+    this->control = control;
+    control->deleteMember(this);
+}
+
+//Function : void sendSignOutMsg(string ID);
+//Description: 회원탈퇴 완료시 결과 출력을 위한 함수
+//
+//Parameters : string ID - 결과 출력시 필요한 정보를 인자로 받는다
+//Return Value : void
+//Created : 2022/06/1 1:14 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+void SignOutUI::sendSignOutMsg(string ID)
+{
+    fout << "1.2 회원탈퇴" << endl;
+    fout << "> " << ID << endl << endl;
+}
+
+//Function : LogOutUI(LogOut*)
+//Description: 바운더리 클래스 생성자
+//
+//
+//Parameters : LogOut*control - control 클래스의 래퍼랜스
+//Return Value : void
+//Created : 2022/06/1 2:30 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+LogOutUI::LogOutUI(LogOut* control)
+{
+    this->control = control;
+    control->logOut(this);
+}
+
+//Function : void sendLogOutMsg(string ID);
+//Description: 로그아웃 완료시 결과 출력을 위한 함수
+//
+//Parameters : string ID - 결과 출력시 필요한 정보를 인자로 받는다
+//Return Value : void
+//Created : 2022/06/1 2:40 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+void LogOutUI::sendLogOutMsg(string ID)
+{
+    fout << "2.2 로그아웃" << endl;
+    fout << "> " << ID << endl << endl;
+}
 
 //
 //Function : void RegistationUI::enterProduct(Registation* control)

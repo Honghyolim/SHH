@@ -25,6 +25,8 @@ int MemberSeq;
 Product product[100];
 //등록된 상품의 숫자를 저장하는 전역변수
 int productnumber = 0;
+//현재 로그인한 멤버의 포인터를 저장하는 전역변수
+Member* currentMember;
 
 //파일 입출력 객체 선언
 ifstream fin(INPUT_FILE_NAME);
@@ -74,7 +76,7 @@ void doTask()
             }
             case 2:
             {
-
+                withdraw();
                 break;
             }
             }
@@ -93,7 +95,7 @@ void doTask()
             }
             case 2:
             {
-
+                logout();
                 break;
             }
             }
@@ -179,15 +181,15 @@ void doTask()
 //Return Value : void
 //Created : 2022/05/27 12:28 am 
 //author : Hong Hyolim
-//Revisions :
+//Revisions : 
+// 1. When& Who : 2022/06/01 3:16 pm by 홍효림
+//	   What : boundary 생성하는것을 control 생성자 안에 넣었음
 //
+
 void join()
 {
     // control class 생성
     SignUp* control = new SignUp;
-    // boundary class 생성 
-    SignUpUI* boundary = new SignUpUI;
-    boundary->enterMemberInfo(control);
 
 }
 
@@ -200,18 +202,50 @@ void join()
 //Return Value : void
 //Created : 2022/05/27 5:46 pm 
 //author : Hong Hyolim
-//Revisions :
+//Revisions : 
+// 1. When& Who : 2022/06/01 3:10 pm by 홍효림
+//	   What : boundary 생성하는것을 control 생성자 안에 넣었음
 //
+
 void login()
 {
     //control class 생성
     Login* control = new Login;
-    //boundary class 생성
-    LoginUI* boundary = new LoginUI;
-    boundary->enterIDPW(control);
-
 }
 
+//Function : void withdraw()
+//Description: 회원탈퇴를 진행하는 함수
+//
+//
+//Parameters : void
+//Return Value : void
+//Created : 2022/06/1 12:12 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+void withdraw()
+{
+    //control class 생성
+    SignOut* control = new SignOut;
+}
+
+//Function : void logout()
+//Description: 로그아웃을 진행하는 함수
+//
+//
+//Parameters : void
+//Return Value : void
+//Created : 2022/06/1 2:00 pm 
+//author : Hong Hyolim
+//Revisions :
+//
+
+void logout()
+{
+    //control class 생성
+    LogOut* control = new LogOut;
+}
 
 //Function : void registation()
 //Description: 상품등록을 진행하는 함수

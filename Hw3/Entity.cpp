@@ -48,7 +48,31 @@ bool Member::createMember(Member* nMember)
     return true;
 }
 
+//Function : void deleteMember(signOutUI* boundary);
+//Description: 회원리스트에서 삭제하고 결과출력함수를 부르는 함수
+//
+//Parameters : signOutUI* boundary - 결과 출력함수를 부르기 위한 boundary class 래퍼랜스를 인자로 받는다.
+//Return Value : void
+//Created : 2022/06/1 1:20 pm 
+//author : Hong Hyolim
+//Revisions :
+//
 
+void Member::deleteMember(SignOutUI* boundary)
+{
+    //boundary 클래스의 reference를 이용해 함수를 불러서 메세지 출력
+    for (int i = 0; i < memberCnt; i++)
+    {
+        if (currentMember->ID == memberList[i]->ID)
+        {
+            memberList[i] = NULL;
+            string ID = MemberID;
+            boundary->sendSignOutMsg(ID);
+            //로그아웃
+            MemberID = "";
+        }
+    }
+}
 
 //Function : string validatePW()
 //Description: memberList[i]의 pw를 리턴하는 함수
