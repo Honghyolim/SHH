@@ -100,6 +100,17 @@ public:
 
 };
 
+class Seller : Member
+{
+privat:
+	int* registationList;
+	int registationCount;
+	Seller(Member* member);
+	virtual void addRegistationProduct(int purchased);
+	virtual int* getRegistationProduct();
+	virtual int getRegistationCount();
+};
+
 // Class : Product
 // Description : Product entity class
 // Created : 2022/5/30 11:19 am
@@ -390,21 +401,21 @@ public:
 class CheckSale
 {
 public:
-	bool searchCheckSale(int);
+	string searchCheckSale(int);
 };
 
 
 class Soldout
 {
 public:
-	bool searchSoldout(int);
+	string searchSoldout(int);
 };
 
 
 class SaleStatistic
 {
 public:
-	bool searchSaleStatistic(int);
+	string searchSaleStatistic(int);
 };
 
 // Class : Search
