@@ -143,7 +143,7 @@ public:
 class CheckSale
 {
 public:
-    bool searchCheckSale(int);
+    string searchCheckSale(int);
 };
 
 class CheckSaleUI
@@ -155,7 +155,7 @@ public:
 class Soldout
 {
 public:
-    bool searchSoldout(int);
+    string searchSoldout(int);
 };
 
 class SoldoutUI
@@ -167,7 +167,7 @@ public:
 class SaleStatistic
 {
 public:
-    bool searchSaleStatistic(int);
+    string searchSaleStatistic(int);
 };
 
 class SaleStatisticUI
