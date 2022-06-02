@@ -1047,11 +1047,19 @@ Purchase::Purchase() {
 string Purchase::showPurchaseFinish() {
     for (int i = 0; i < productnumber; i++) {
         if (product[i].getRecentSearched()) {
-            product[i].modifyProductQuantity();
-            now[MemberSeq] = new Buyer(memberList[MemberSeq]);
-            now[MemberSeq]->addPurchasedProduct(i);
-            result = product[i].getSeller() + " " + product[i].getName();
-            return result;
+            if (product[i].getRegistation() > product[i].getPurchased()) {
+                product[i].modifyProductQuantity();
+                if (now[MemberSeq] == NULL) {
+                    now[MemberSeq] = new Buyer(memberList[MemberSeq]);
+                }
+                now[MemberSeq]->addPurchasedProduct(i);
+                product[i].setRecentSearched();//true->false;
+                result = product[i].getSeller() + " " + product[i].getName();
+                return result;
+            }
+            else {
+                return "재고 없음";
+            }
         }
     }
     return "최근 검색한 상품이 없음";
@@ -1069,11 +1077,12 @@ PurchasedList::PurchasedList() {}
 //
 string PurchasedList::getPurchasedProduct() {
     string result = "";
-    if (now[MemberSeq]) {
+    if (now[MemberSeq] != NULL) {
         int purchasedCount = now[MemberSeq]->getPurchasedCount(); //물건의 갯수
         int* list = now[MemberSeq]->getPurchasedProduct();//buyer가 가진 구매목록 가져오기 (물건 번호로 저장)  
         for (int i = 0; i < purchasedCount; i++) {
             result += listPurchasedProduct(list[i]);
+            result += "\n";
         }
     }
     else {

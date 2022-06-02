@@ -15,8 +15,8 @@ void doTask();
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who : 2022/06/01 3:12 pm by 홍효림
-//	   What : control atrribute 추가, 생성자 선언
+//   1. When& Who : 2022/06/01 3:12 pm by 홍효림
+//      What : control atrribute 추가, 생성자 선언
 // 
 //
 
@@ -39,8 +39,8 @@ public:
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who : 2022/06/01 3:13 pm by 홍효림
-//	   What : createBoundary 함수 추가, 생성자 선언
+//   1. When& Who : 2022/06/01 3:13 pm by 홍효림
+//      What : createBoundary 함수 추가, 생성자 선언
 // 
 //
 
@@ -74,6 +74,13 @@ public:
 };
 
 
+// Class : Buyer
+// Description : Buyer entity class
+// Created : 2022/6/1 03:08 pm
+// Author : 서준택
+// Revisions :
+//   1. When& Who :
+//      What :
 class Buyer : Member
 {
 private:
@@ -115,6 +122,8 @@ public:
 // Revisions :
 //   1. When& Who :
 //      What :
+//   2. When& Who :2022/06/01 03:30 pm   서준택
+//      What : 상품 구매처리를 위한 수량변경, 상세정보반환, 만족도 계산 함수 추가
 // 
 //
 class Product {
@@ -161,8 +170,8 @@ public:
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who : 2022/06/01 3:05 pm by 홍효림
-//	   What : control atrribute 추가, 생성자 선언
+//   1. When& Who : 2022/06/01 3:05 pm by 홍효림
+//      What : control atrribute 추가, 생성자 선언
 // 
 //
 class Login;
@@ -184,8 +193,8 @@ public:
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who : 2022/06/01 3:05 pm by 홍효림
-//	   What : createBoundary 함수 추가, 생성자 선언
+//   1. When& Who : 2022/06/01 3:05 pm by 홍효림
+//      What : createBoundary 함수 추가, 생성자 선언
 // 
 //
 
@@ -205,8 +214,8 @@ public:
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who : 
-//	   What : 
+//   1. When& Who : 
+//      What : 
 // 
 //
 
@@ -226,8 +235,8 @@ public:
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//   1. When& Who :
+//      What :
 // 
 //
 
@@ -246,8 +255,8 @@ public:
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//   1. When& Who :
+//      What :
 // 
 //
 
@@ -267,8 +276,8 @@ public:
 // Author : 홍효림
 // mail : hyolim.korea@gmail.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//   1. When& Who :
+//      What :
 // 
 //
 
@@ -286,8 +295,8 @@ public:
 // Author : 황성윤
 // mail : yooni0704@gamil.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//   1. When& Who :
+//      What :
 class Registation
 {
 public:
@@ -300,8 +309,8 @@ public:
 // Author : 황성윤
 // mail : yooni0704@gamil.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//   1. When& Who :
+//      What :
 class CheckSale
 {
 public:
@@ -314,8 +323,8 @@ public:
 // Author : 황성윤
 // mail : yooni0704@gamil.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//   1. When& Who :
+//      What :
 class Soldout
 {
 public:
@@ -328,8 +337,8 @@ public:
 // Author : 황성윤
 // mail : yooni0704@gamil.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//   1. When& Who :
+//      What :
 
 class SaleStatistic
 {
@@ -343,8 +352,8 @@ public:
 // Author : 황성윤
 // mail : yooni0704@gamil.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//   1. When& Who :
+//      What :
 
 class RegistationUI
 {
@@ -357,8 +366,8 @@ public:
 // Author : 황성윤
 // mail : yooni0704@gamil.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//   1. When& Who :
+//      What :
 
 class CheckSaleUI
 {
@@ -372,8 +381,8 @@ public:
 // Author : 황성윤
 // mail : yooni0704@gamil.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//   1. When& Who :
+//      What :
 
 
 class SoldoutUI
@@ -388,8 +397,8 @@ public:
 // Author : 황성윤
 // mail : yooni0704@gamil.com
 // Revisions :
-//	1. When& Who :
-//	   What :
+//   1. When& Who :
+//      What :
 
 
 class SaleStatisticUI
@@ -398,6 +407,17 @@ public:
 	void printSaleStatistic(SaleStatistic*);
 };
 
+
+// Class : SearchUI
+// Description : 검색 boundary class
+// Created : 2022/6/1 16:51 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class Search;
 class SearchUI {
 private:
@@ -410,6 +430,16 @@ public:
 	~SearchUI();
 };
 
+// Class : PurchaseUI
+// Description : 구매 boundary class
+// Created : 2022/6/1 16:51 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class Purchase;
 class PurchaseUI {
 private:
@@ -419,6 +449,16 @@ public:
 	~PurchaseUI();
 };
 
+// Class : PurchasedListUI
+// Description : 상품 구매 내역 조회 boundary class
+// Created : 2022/6/1 16:51 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class PurchasedList;
 class PurchasedListUI {
 public:
@@ -426,6 +466,16 @@ public:
 	void searchPurchasedList(PurchasedList*);
 };
 
+// Class : ReviewUI
+// Description : 만족도 평가 boundary class
+// Created : 2022/6/1 16:51 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class Review;
 class ReviewUI {
 private:
@@ -436,6 +486,16 @@ public:
 	void selectProduct(Review*);
 };
 
+// Class : Search
+// Description : 검색 control class
+// Created : 2022/6/1 5:36 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class Search {
 private:
 
@@ -445,6 +505,16 @@ public:
 	~Search();
 };
 
+// Class : Purchase
+// Description : 상품 구매 control class
+// Created : 2022/6/1 5:36 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class Purchase {
 private:
 	string recentSearchWord;
@@ -457,6 +527,16 @@ public:
 	string showPurchaseFinish();
 };
 
+// Class : PurchasedList
+// Description : 상품 구매 내역 조회 control class
+// Created : 2022/6/1 5:36 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class PurchasedList {
 public:
 	PurchasedList();
@@ -464,13 +544,18 @@ public:
 	string listPurchasedProduct(int purchased);
 };
 
+// Class : Review
+// Description : 만족도 평가 control class
+// Created : 2022/6/1 16:51 pm
+// Author : 서준택
+// mail : jwutn908@gmail.com
+// Revisions :
+//   1. When& Who :
+//      What :
+// 
+//
 class Review {
 public:
 	Review() {};
 	string selectProduct(string reviewProduct, int reviewPoint);
 };
-
-
-
-
-
