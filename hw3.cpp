@@ -10,7 +10,7 @@ using namespace std;
 
 
 //등록된 상품의 숫자를 저장하는 전역변수
-int productnumber = 0;
+int productNumber = 0;
 // Product 저장하는 리스트 전역변수
 Product product[100];
 // Buyer 저장하는 리스트 전역변수 
@@ -18,13 +18,13 @@ Buyer* now[100];
 // Seller 저장하는 리스트 전역변수
 Seller* snow[100];
 // 현재 로그인한 member를 특정 위한 전역변수
-int MemberSeq;
+int memberSeq;
 
 // Member 저장하는 리스트 전역변수
 Member* memberList[100];
 int memberCnt = 0;
 //현재 로그인한 멤버의 ID를 저장하는 전역변수
-string MemberID = "";
+string memberID = "";
 //현재 로그인한 멤버의 포인터를 저장하는 전역변수
 Member* currentMember;
 //파일 입출력 객체 선언
@@ -461,7 +461,7 @@ void LoginUI::enterIDPW(Login* control)
     if (flag == true)
     {
         fout << "> " << ID << " " << password << endl << endl;
-        MemberID = ID;
+        memberID = ID;
     }
     else
     {
@@ -496,7 +496,7 @@ bool Login::validateID(string ID, string password)
         //fout << password2;
         if (ID.compare(ID2) == 0 && password.compare(password2) == 0)
         {
-            MemberSeq = i;
+            memberSeq = i;
             return true;
         }
     }
@@ -615,10 +615,10 @@ void Member::deleteMember(SignOutUI* boundary)
         if (currentMember->ID == memberList[i]->ID)
         {
             memberList[i] = NULL;
-            string ID = MemberID;
+            string ID = memberID;
             boundary->sendSignOutMsg(ID);
             //로그아웃
-            MemberID = "";
+            memberID = "";
         }
     }
 }
@@ -702,8 +702,8 @@ void LogOutUI::sendLogOutMsg(string ID)
 
 void LogOut::logOut(LogOutUI* boundary)
 {
-    string ID = MemberID;
-    MemberID = "";
+    string ID = memberID;
+    memberID = "";
     boundary->sendLogOutMsg(ID);
 }
 
@@ -723,8 +723,8 @@ void RegistationUI::enterProduct(Registation* control) {
     int RegistationQuantity;
 
     fin >> ProductName >> CompanyName >> ProductPrice >> RegistationQuantity;
-    control->setProduct(ProductName, CompanyName, ProductPrice, RegistationQuantity, MemberID);
-    productnumber++;
+    control->setProduct(ProductName, CompanyName, ProductPrice, RegistationQuantity, memberID);
+    productNumber++;
     fout << "3.1 판매 의류 등록 " << endl;
     fout << "> " << ProductName << " " << CompanyName << " " << ProductPrice << " " << RegistationQuantity << endl;
 }
@@ -908,14 +908,14 @@ void ReviewUI::selectProduct(Review* control) {
 //
 void Registation::setProduct(string ProductName, string CompanyName, int ProductPrice, int RegistationQuantity, string SellerID)
 {
-    product[productnumber].setName(ProductName);
-    product[productnumber].setCompany(CompanyName);
-    product[productnumber].setPrice(ProductPrice);
-    product[productnumber].setRegistation(RegistationQuantity);
-    product[productnumber].setPurchased(0);
-    product[productnumber].setReview(0);
-    product[productnumber].setSeller(SellerID);
-    snow[MemberSeq]->addRegistationProduct(snow[MemberSeq]->getRegistationCount());
+    product[productNumber].setName(ProductName);
+    product[productNumber].setCompany(CompanyName);
+    product[productNumber].setPrice(ProductPrice);
+    product[productNumber].setRegistation(RegistationQuantity);
+    product[productNumber].setPurchased(0);
+    product[productNumber].setReview(0);
+    product[productNumber].setSeller(SellerID);
+    snow[memberSeq]->addRegistationProduct(snow[memberSeq]->getRegistationCount());
 }
 
 
@@ -931,8 +931,8 @@ void Registation::setProduct(string ProductName, string CompanyName, int Product
 string CheckSale::searchCheckSale()
 {
     int i = 0;
-    int* list = snow[MemberSeq]->getRegistationProduct();
-    int registationCount = snow[MemberSeq]->getRegistationCount(); //물건의 갯수
+    int* list = snow[memberSeq]->getRegistationProduct();
+    int registationCount = snow[memberSeq]->getRegistationCount(); //물건의 갯수
     string result = "";
     while (registationCount > i) {
         if (product[list[i]].getPurchased() != product[list[i]].getRegistation()) {
@@ -957,8 +957,8 @@ string CheckSale::searchCheckSale()
 string Soldout::searchSoldout()
 {
     int i = 0;
-    int* list = snow[MemberSeq]->getRegistationProduct();
-    int registationCount = snow[MemberSeq]->getRegistationCount();
+    int* list = snow[memberSeq]->getRegistationProduct();
+    int registationCount = snow[memberSeq]->getRegistationCount();
     string result = "";
     while (registationCount > i) {
         if (product[list[i]].getPurchased() == product[list[i]].getRegistation()) {
@@ -983,8 +983,8 @@ string Soldout::searchSoldout()
 string SaleStatistic::searchSaleStatistic()
 {
     int i = 0;
-    int* list = snow[MemberSeq]->getRegistationProduct();//buyer가 가진 구매목록 가져오기 (물건 번호로 저장)  
-    int registationCount = snow[MemberSeq]->getRegistationCount(); //물건의 갯수 
+    int* list = snow[memberSeq]->getRegistationProduct();//buyer가 가진 구매목록 가져오기 (물건 번호로 저장)  
+    int registationCount = snow[memberSeq]->getRegistationCount(); //물건의 갯수 
     string result = "";
     while (registationCount > i) {
         if (0 != product[list[i]].getPurchased()) {
@@ -1020,7 +1020,7 @@ Search::Search() {}
 //Revisions :
 //
 string Search::showProduct(string searchKeyword) {
-    for (int i = 0; i < productnumber; i++) {
+    for (int i = 0; i < productNumber; i++) {
         if (product[i].getName() == searchKeyword) {
             product[i].setRecentSearched();//false ->true
             return product[i].getProductDetail();
@@ -1056,11 +1056,11 @@ Purchase::Purchase() {
 //Revisions :
 //
 string Purchase::showPurchaseFinish() {
-    for (int i = 0; i < productnumber; i++) {
+    for (int i = 0; i < productNumber; i++) {
         if (product[i].getRecentSearched()) {
             if (product[i].getRegistation() > product[i].getPurchased()) {
                 product[i].modifyProductQuantity();
-                now[MemberSeq]->addPurchasedProduct(i);
+                now[memberSeq]->addPurchasedProduct(i);
                 product[i].setRecentSearched();//true->false;
                 result = ">" + product[i].getSeller() + " " + product[i].getName();
                 return result;
@@ -1096,9 +1096,9 @@ PurchasedList::PurchasedList() {}
 //
 string PurchasedList::getPurchasedProduct() {
     string result = "";
-    if (now[MemberSeq] != NULL) {
-        int purchasedCount = now[MemberSeq]->getPurchasedCount(); //물건의 갯수
-        int* list = now[MemberSeq]->getPurchasedProduct();//buyer가 가진 구매목록 가져오기 (물건 번호로 저장)  
+    if (now[memberSeq] != NULL) {
+        int purchasedCount = now[memberSeq]->getPurchasedCount(); //물건의 갯수
+        int* list = now[memberSeq]->getPurchasedProduct();//buyer가 가진 구매목록 가져오기 (물건 번호로 저장)  
         for (int i = 0; i < purchasedCount; i++) {
             result += ">" + listPurchasedProduct(list[i]) + "\n";
         }
@@ -1133,7 +1133,7 @@ string PurchasedList::listPurchasedProduct(int productNum) {
 //
 string Review::selectProduct(string reviewProduct, int reviewPoint) {
     string result;
-    for (int i = 0; i < productnumber; i++) {
+    for (int i = 0; i < productNumber; i++) {
         if (product[i].getName() == reviewProduct) {
             product[i].modifyProductReview(reviewPoint);
             result = product[i].getSeller() + " " + product[i].getName() + " " + to_string(lround(product[i].getReview()));
